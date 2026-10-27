@@ -1,0 +1,24 @@
+# Render Blueprint for robscotton.com: a static site served straight from the site/ folder.
+services:
+  - type: web
+    name: robscotton
+    runtime: static
+    buildCommand: echo "Site is prebuilt; nothing to build"
+    staticPublishPath: ./site
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000
+      - path: /img/*
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /*.html
+        name: Cache-Control
+        value: public, max-age=300
