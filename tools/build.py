@@ -619,7 +619,7 @@ def res_card(provider, title, desc, tags, by, site, url, note):
     return f'<article class="res"><p class="res-from">{provider}</p><h3>{title}</h3><p>{desc}</p><ul class="tags">{t}</ul>{n}<p class="res-by">{by} <span>{site}</span></p><a class="btn small" href="{url}" target="_blank" rel="noopener" aria-label="Visit resource: {title} (opens {provider} in a new tab)">Visit resource {EXT}</a></article>'
 
 MAX_SHEETS = [
-  ("colouring","max-colouring-pages.pdf","Colour in Max and Moonbean","Two pages made from Rob&#8217;s own pencil sketches for the book. Max, Mr Ted and a few Moonbeans, ready for crayons.","2 pages"),
+  ("colouring-sheets","max-colouring-sheets.pdf","Colour in Max","Two colouring sheets drawn by Rob: Max and Mr Ted flying through a shower of jigsaw pieces, and Max at his school desk. Each sheet has a question to talk about while you colour.","landscape, 2 pages"),
   ("maze","max-moon-maze.pdf","Fly Max to the moon","Moonbean is waiting on the moon. Find the way through the maze from Max&#8217;s bubble.","1 page"),
   ("code","max-bubble-speak-code.pdf","Bubble-speak secret code","Moonbean talks in bubbles. Use the key to read his message, then write one of your own for a friend.","1 page"),
   ("show","max-show-and-tell.pdf","My show-and-tell","Max found Moonbean. Draw what you would bring, then write about it.","1 page"),
