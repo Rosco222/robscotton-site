@@ -538,3 +538,63 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
 .twinkle .shoot{position:absolute;height:2px;border-radius:2px;opacity:0;pointer-events:none;transform-origin:100% 50%;
   background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.6) 70%,#fff);box-shadow:0 0 6px rgba(255,255,240,.8)}
 @media (prefers-reduced-motion:reduce){.twinkle .tw{animation:none;opacity:.7}.twinkle .shoot{display:none}}
+
+/* ---------- Russell page drawers: one wide painted header per book ---------- */
+.drawer{color:#fff}
+.hdr[id],.drawer{scroll-margin-top:66px}
+.drawer h2{font-size:clamp(2.3rem,5vw,4.3rem);line-height:.96;margin:0 0 .2em;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.4)}
+.drawer .lede{color:#EDF1F7}
+.drawer .kicker{color:#9FE3DD}
+.drw-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.drw-chips a{font-family:var(--display);font-weight:700;font-size:.92rem;text-decoration:none;color:#fff;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.35);transition:background .2s,transform .2s var(--bounce)}
+.drw-chips a:hover{background:rgba(255,255,255,.26);transform:translateY(-2px)}
+.inside{background:#fff}
+.inside .grid.c3{gap:clamp(12px,2vw,22px)}
+.inside-row{display:grid;grid-template-columns:.8fr 1fr 1fr 1fr;gap:clamp(12px,2vw,22px);align-items:center}
+@media (max-width:860px){.inside-row{grid-template-columns:1fr 1fr}}
+/* effect layer: sized by script to sit exactly on the painting, however it is cropped */
+.fx{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.hdr.drawer{overflow:hidden}
+
+/* 2. Lost Treasure: welder, heading on the dark right side, Frankie grinning bottom right, welding sparks */
+.drw-treasure{background:#161515}
+.drw-treasure .bg img{object-position:0% 50%}
+.drw-treasure .fade{background:linear-gradient(270deg,rgba(18,17,17,.9) 0%,rgba(18,17,17,.65) 36%,rgba(18,17,17,0) 62%)}
+.drw-treasure .wrap{display:flex;justify-content:flex-end}
+.drw-treasure .copy{max-width:520px;padding-right:clamp(0px,6vw,90px)}
+.frankie-peek{position:absolute;right:clamp(8px,2.5vw,40px);bottom:-6px;width:clamp(60px,6.5vw,104px);height:auto;z-index:3;transform-origin:50% 100%;
+  filter:drop-shadow(0 10px 12px rgba(0,0,0,.5));animation:frankie-bob 5s ease-in-out infinite}
+@keyframes frankie-bob{0%,70%,100%{transform:translateY(0) rotate(0)}76%{transform:translateY(-14px) rotate(-4deg)}82%{transform:translateY(0) rotate(2deg)}88%{transform:translateY(-6px) rotate(0)}94%{transform:translateY(0)}}
+.torch-glow{position:absolute;left:var(--gx);top:var(--gy);width:14%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(235,248,255,.75) 0%,rgba(150,205,255,.28) 30%,rgba(120,170,255,0) 68%);mix-blend-mode:screen;animation:arc-flicker 1.3s linear infinite}
+@keyframes arc-flicker{0%{opacity:.7}9%{opacity:1}17%{opacity:.55}26%{opacity:.95}38%{opacity:.65}47%{opacity:1}60%{opacity:.6}71%{opacity:.9}83%{opacity:.5}100%{opacity:.7}}
+.spark{position:absolute;width:var(--s);height:var(--s);border-radius:50%;background:#fff3c4;box-shadow:0 0 6px 1px rgba(255,170,60,.95)}
+
+/* 3. Christmas Magic: heading on the left, snow falling, the lantern glowing */
+.drw-xmas{background:#121729}
+.drw-xmas .bg img{object-position:100% 50%}
+.drw-xmas .fade{background:linear-gradient(90deg,rgba(18,23,41,.8) 0%,rgba(18,23,41,.5) 38%,rgba(18,23,41,0) 60%)}
+.lantern-glow{position:absolute;left:var(--gx);top:var(--gy);width:20%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(255,230,160,.55) 0%,rgba(255,200,110,.22) 32%,rgba(255,190,90,0) 68%);mix-blend-mode:screen;animation:lantern 3.2s ease-in-out infinite}
+@keyframes lantern{0%,100%{opacity:.75;transform:translate(-50%,-50%) scale(1)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}55%{opacity:.82}75%{opacity:.98;transform:translate(-50%,-50%) scale(1.04)}}
+
+/* 4. Russell's story: blue sky, Russell counting as numbers float up and away */
+.drw-story{background:#6FB3D0}
+.drw-story .bg img{object-position:100% 50%}
+.drw-story .fade{background:linear-gradient(90deg,rgba(28,62,88,.7) 0%,rgba(28,62,88,.4) 40%,rgba(28,62,88,0) 62%)}
+.count-n{position:absolute;font-family:var(--display);font-weight:800;color:#fff;text-shadow:0 2px 10px rgba(20,60,90,.45);transform:translate(-50%,-50%);white-space:nowrap}
+
+@media (max-width:760px){
+  /* on phones: heading first on a solid colour, then the whole painting underneath */
+  .hdr.drawer{display:flex;flex-direction:column;align-items:stretch;padding:0;min-height:0}
+  .drawer .wrap{order:1;display:block;padding-top:34px;padding-bottom:26px}
+  .drawer .copy{padding-right:0}
+  .drawer .bg{position:relative;inset:auto;order:2}
+  .drawer .bg img{height:auto;aspect-ratio:1.25;object-fit:cover;display:block}
+  .drawer .fade{display:none}
+  .drw-treasure .bg img{object-position:0% 50%}
+  .drw-xmas .bg img,.drw-story .bg img{object-position:100% 50%}
+  .drw-story{background:#2D5C7C}
+  .frankie-peek{width:64px}
+}
+@media (prefers-reduced-motion:reduce){.frankie-peek,.torch-glow,.lantern-glow{animation:none}}

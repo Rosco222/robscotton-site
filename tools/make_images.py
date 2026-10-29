@@ -125,6 +125,38 @@ mc = mc.resize((1600, round(mc.height * 1600 / mc.width)), Image.LANCZOS)
 mc = ImageEnhance.Color(mc).enhance(1.1)
 bake('hdr-max', Image.blend(Image.new('RGB', mc.size, hex2rgb('0B1733')), mc, 0.70))
 
+# ---------- Russell page "drawers": one wide header per book, plus Russell's story ----------
+def trim_white(im, pad=8):
+    a = np.array(im).astype(int); nonw = a.min(axis=2) < 235
+    rows = np.where(nonw.mean(1) > .5)[0]; cols = np.where(nonw.mean(0) > .5)[0]
+    return im.crop((cols[0] + pad, rows[0] + pad, cols[-1] - pad, rows[-1] - pad))
+
+def extend_left(im, aspect=2.1, src=.4, blur=.06, feather=.25, night=None, dark=.0):
+    """Widen a painting to the left: a soft, heavily blurred stretch of its own left side, blended in,
+    so a heading can sit beside the picture. Optionally deepen the far left towards a night colour."""
+    w, h = im.size; CW = int(h * aspect)
+    fill = im.crop((0, 0, int(w * src), h)).resize((CW - w + int(w * feather), h), Image.LANCZOS)
+    fill = fill.filter(ImageFilter.GaussianBlur(h * blur))
+    can = Image.new('RGB', (CW, h)); can.paste(fill, (0, 0))
+    if night is not None:
+        g = np.tile(np.linspace(dark, 0, CW)[None, :], (h, 1))
+        nc = np.array(hex2rgb(night), float)
+        a = np.array(can).astype(float); a = a * (1 - g[..., None]) + nc * g[..., None]
+        can = Image.fromarray(a.astype('uint8'))
+    fw = int(w * feather)
+    m = Image.new('L', (w, h), 255); m.paste(Image.fromarray(np.tile(np.linspace(0, 255, fw)[None, :], (h, 1)).astype('uint8')), (0, 0))
+    can.paste(im, (CW - w, 0), m)
+    return can
+
+# 2. Russell and the Lost Treasure: the welder poster is already wide, with dark space on the right for the heading
+bake('hdr-russell-treasure', Image.open(os.path.join(RSRC, 'RUSSELL POSTER (welder) 3.jpg')).convert('RGB'))
+_fr = Image.open(os.path.join(RSRC, 'Frankie on Laayer.png')).convert('RGBA')
+content('frankie-grin', _fr.crop(_fr.getchannel('A').getbbox()), True)
+# 3. Russell's Christmas Magic: "Russell trudged off", white border trimmed, widened to the left
+bake('hdr-russell-xmas', extend_left(trim_white(Image.open(os.path.join(RSRC, 'Russell TRUDGED OFF.jpg')).convert('RGB')), night='121729', dark=.55))
+# 4. Russell's story: the leaping cover painting, widened to the left
+bake('hdr-russell-story', extend_left(Image.open(os.path.join(RSRC, 'RUSSELL COVER for section.jpg')).convert('RGB'), src=.3, feather=.3))
+
 json.dump(manifest, open(f'{OUT}/manifest.json', 'w'), indent=1)
 tot = sum(os.path.getsize(os.path.join(OUT, x)) for x in os.listdir(OUT))
 big = max((s[0], s[1], n) for n, m in manifest.items() for s in m['sizes'] if not n.startswith('hdr-'))

@@ -3,7 +3,7 @@ Usage: python3 make_dist.py <repo-folder>"""
 import os, re, sys, glob, shutil, urllib.parse
 REPO = sys.argv[1]; OUT = os.path.join(REPO, 'site'); TOOLS = os.path.join(REPO, 'tools')
 SITE_URL = 'https://www.robscotton.com'
-PAGES = ['index.html', 'splat.html', 'russell.html', 'max.html', 'about.html', 'activities.html', 'gallery.html', 'contact.html', '404.html']
+PAGES = ['index.html', 'splat.html', 'russell.html', 'russells-story.html', 'max.html', 'about.html', 'activities.html', 'gallery.html', 'contact.html', '404.html']
 shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT); os.makedirs(TOOLS, exist_ok=True)
 need = set(PAGES) | {'assets/site.css', 'assets/site.js'}
 for f in PAGES + ['assets/site.css', 'assets/site.js']:

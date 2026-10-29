@@ -33,7 +33,7 @@ SHOW_LICENSING = False   # licensing is hidden for now; set True to bring it bac
 def shell(file, title, desc, body, theme="#F6B51F", extra_head=""):
     short = {"Splat the Cat":"Splat","Russell the Sheep":"Russell","Max and Moonbean":"Max &amp; Moonbean"}
     cur = ' aria-current="page"'
-    nav = "".join(f'<a href="{h}"{cur if h==file else ""}>' + (f'<span class="full">{t}</span><span class="short" aria-hidden="true">{short[t]}</span>' if t in short else t) + '</a>' for h,t in NAV)
+    nav = "".join(f'<a href="{h}"{cur if h==file or (h=="russell.html" and file=="russells-story.html") else ""}>' + (f'<span class="full">{t}</span><span class="short" aria-hidden="true">{short[t]}</span>' if t in short else t) + '</a>' for h,t in NAV)
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -352,54 +352,69 @@ story = """<p>I was riding my bike through a field in Rutland, near where I live
 <blockquote>By Granny Oldwool’s beard, there may be something there…</blockquote>
 <p>Oh, and of course, there’s also a little frog… and an ant. Job done!</p>"""
 
+DRAWERS = [("russell-the-sheep","Russell the Sheep"),("lost-treasure","Lost Treasure"),("christmas-magic","Christmas Magic"),("story","Russell&#8217;s story")]
+drw_chips = '<nav class="drw-chips" aria-label="On this page">' + "".join(f'<a href="#{k}">{t}</a>' for k,t in DRAWERS) + '</nav>'
+
 russell = f'''
-<header class="hdr hdr-russell">
+<header class="hdr hdr-russell" id="russell-the-sheep">
   <div class="bg">{pic("hdr-russell","","100vw",lazy=False)}</div>
   <div class="fade"></div>
   <div class="twinkle" aria-hidden="true"></div>
   <div class="wrap"><div class="copy">
-    <p class="kicker">Rob Scotton's</p>
+    <p class="kicker">Book one, 2005</p>
     <h1>Russell the Sheep</h1>
-    <p class="lede">The woolly hero of Frogsbottom Field. Russell cannot get to sleep, so he counts things. His feet. The stars. Every sheep in the field. Then, on a snowy night in Firefly Wood, he saves Christmas.</p>
+    <p class="lede">The woolly hero of Frogsbottom Field cannot get to sleep, so he counts things. His feet. The stars. Every sheep in the field. Russell was Rob&#8217;s first picture book, and his first New York Times bestseller.</p>
     <a class="btn teal" href="#buy">Where to buy {ARROW}</a>
+    {drw_chips}
   </div></div>
 </header>
-
-<section class="band" aria-labelledby="xmas-h">
-  <div class="wrap split">
-    <figure style="margin:0;width:min(100%,360px);justify-self:center" class="art tilt-l">{pic("cover-russell-xmas","Russell's Christmas Magic book cover","(max-width:860px) 80vw, 30vw")}</figure>
-    <div>
-      <p class="kicker">Russell is baa‑aack</p>
-      <h2 id="xmas-h">Russell's Christmas Magic</h2>
-      <p class="lede">Santa Claus's sleigh crashes in Firefly Wood and the Christmas Spell is broken. To Russell's dismay, Santa declares that Christmas must be cancelled.</p>
-      <p>But our fleecy hero doesn't give up easily, and he soon has a woolly idea that just might save the day. Go Russell!</p>
-      <div class="grid c3" style="margin-top:22px">
-        {zoom("russell-p8","Russell trudging through the snow","Russell's Christmas Magic")}
-        {zoom("russell-p9","Russell listening at the edge of the wood","Russell's Christmas Magic")}
-        {zoom("russell-art-14","Santa's crashed sleigh in the snow","Russell's Christmas Magic")}
-      </div>
-    </div>
-  </div>
+<section class="band tight inside" aria-label="Pictures from Russell the Sheep">
+  <div class="wrap"><div class="grid c3">
+    {zoom("russell-what-to-do","Russell standing wide awake in his striped nightcap","What&#8217;s a sheep to do?")}
+    {zoom("russell-swing","Russell swinging from a tree while Frankie clings to the trunk","One more try")}
+    {zoom("russell-sleeps","Russell asleep under a patchwork quilt","Russell sleeps, at last!")}
+  </div></div>
 </section>
 
-<section class="band paper-band" aria-labelledby="story-h">
+<section class="hdr drawer drw-treasure" id="lost-treasure" aria-labelledby="treasure-h">
+  <div class="bg">{pic("hdr-russell-treasure","","100vw")}</div>
+  <div class="fade"></div>
+  <div class="fx" data-fx="sparks" data-x="19.2" data-y="75.6" aria-hidden="true"><span class="torch-glow"></span></div>
+  <div class="wrap"><div class="copy">
+    <p class="kicker">Book two, 2006</p>
+    <h2 id="treasure-h">Russell and the Lost Treasure</h2>
+    <p class="lede">Legend has it there&#8217;s a treasure lost somewhere in Frogsbottom Field. Russell builds a homemade treasure detector and goes looking, and the chest he finds holds a surprising prize.</p>
+    <a class="btn teal" href="#buy">Where to buy {ARROW}</a>
+  </div></div>
+  <img class="frankie-peek" src="img/frankie-grin-193.webp" alt="" width="193" height="505" loading="lazy">
+</section>
+<section class="band tight inside" aria-label="Pictures from Russell and the Lost Treasure">
+  <div class="wrap"><div class="grid c3">
+    {zoom("russell-lt-plan","Russell peeping over a long scroll of drawings for a treasure-hunting machine","The big plan")}
+    {zoom("russell-lt-auntie-uncle","Two sheep in sunglasses riding in a battered old car","Auntie and Uncle, out for a spin")}
+    {zoom("russell-lt-shares","Russell reading from a glowing book to the flock under the night sky","Russell shares his treasure")}
+  </div></div>
+</section>
+
+<section class="hdr drawer drw-xmas" id="christmas-magic" aria-labelledby="xmas-h">
+  <div class="bg">{pic("hdr-russell-xmas","","100vw")}</div>
+  <div class="fade"></div>
+  <div class="fx" data-fx="lantern" data-x="84" data-y="50" aria-hidden="true"><span class="lantern-glow"></span></div>
+  <div class="snow" aria-hidden="true"></div>
+  <div class="wrap"><div class="copy">
+    <p class="kicker">Book three, 2007</p>
+    <h2 id="xmas-h">Russell&#8217;s Christmas Magic</h2>
+    <p class="lede">Santa Claus&#8217;s sleigh crashes in Firefly Wood and the Christmas Spell is broken. Santa declares that Christmas must be cancelled. But our fleecy hero doesn&#8217;t give up easily, and he soon has a woolly idea that just might save the day.</p>
+    <a class="btn teal" href="#buy">Where to buy {ARROW}</a>
+  </div></div>
+</section>
+<section class="band tight inside" aria-label="Pictures from Russell's Christmas Magic">
   <div class="wrap">
-    <div class="split" style="align-items:start">
-      <div>
-        <p class="kicker" style="color:var(--teal-2)">So how did it all begin?</p>
-        <h2 id="story-h">Russell's story, according to Rob</h2>
-        <div class="prose">{story}</div>
-      </div>
-      <div style="display:grid;gap:22px;position:sticky;top:90px">
-        <div style="width:min(100%,300px)">{zoom("cover-russell","Russell the Sheep book cover","Russell the Sheep, the first book","(max-width:860px) 80vw, 25vw")}</div>
-        <div class="grid c3" style="gap:12px">
-          <img src="img/sheep-photo-1-90.webp" alt="One of the original Frogsbottom sheep" width="90" height="87" style="width:100%;border-radius:12px" loading="lazy">
-          <img src="img/sheep-photo-2-106.webp" alt="A sheep lying in a field in Rutland" width="106" height="85" style="width:100%;border-radius:12px" loading="lazy">
-          <img src="img/sheep-photo-3-90.webp" alt="Sheep sheltering in the shadow of a tree" width="90" height="87" style="width:100%;border-radius:12px" loading="lazy">
-        </div>
-        <p style="font-size:.9rem;color:var(--ink-2)">The original Frogsbottom sheep that Rob came across as he cycled through a field in Rutland, England. It all started with these guys.</p>
-        <div style="display:flex;gap:14px;align-items:flex-end"><img src="img/russell-counting-215.webp" alt="Russell counting his feet" width="215" height="219" style="width:120px" loading="lazy"><img src="img/frankie-75.webp" alt="Frankie the frog" width="75" height="194" style="width:50px" loading="lazy"></div>
-      </div>
+    <div class="inside-row">
+      <figure style="margin:0" class="art tilt-l">{pic("cover-russell-xmas","Russell&#8217;s Christmas Magic book cover","(max-width:860px) 60vw, 22vw")}</figure>
+      {zoom("russell-p8","Russell trudging through the snow","Russell&#8217;s Christmas Magic")}
+      {zoom("russell-p9","Russell listening at the edge of the wood","Russell&#8217;s Christmas Magic")}
+      {zoom("russell-art-14","Santa&#8217;s crashed sleigh in the snow","Russell&#8217;s Christmas Magic")}
     </div>
   </div>
 </section>
@@ -420,6 +435,18 @@ russell = f'''
       {"".join(zoom(f"myer-window-{i}", f"Myer Christmas window {i}", "Photo: Rob Anderson", cls="art wide") for i in range(1,7))}
     </div>
   </div>
+</section>
+
+<section class="hdr drawer drw-story" id="story" aria-labelledby="story-h">
+  <div class="bg">{pic("hdr-russell-story","","100vw")}</div>
+  <div class="fade"></div>
+  <div class="fx" data-fx="count" data-x="54" data-y="52" aria-hidden="true"></div>
+  <div class="wrap"><div class="copy">
+    <p class="kicker">So how did it all begin?</p>
+    <h2 id="story-h">Russell&#8217;s story, according to Rob</h2>
+    <p class="lede">A bike ride through a field in Rutland, a flock of sheep staring back, and an idea Rob kept dismissing. Here&#8217;s how Russell came to be.</p>
+    <a class="btn" href="russells-story.html">Read Russell&#8217;s story {ARROW}</a>
+  </div></div>
 </section>
 
 {buy_section("Where to buy Russell",
@@ -444,7 +471,34 @@ russell = f'''
   </div>
 </section>
 '''
-pages['russell.html'] = shell('russell.html', "Russell the Sheep | Rob Scotton", "Russell the Sheep and Russell's Christmas Magic by Rob Scotton: how Russell came to be, page art, the Myer Christmas windows and a free colouring sheet.", russell, "#8ED0E8")
+pages['russell.html'] = shell('russell.html', "Russell the Sheep | Rob Scotton", "Rob Scotton's Russell the Sheep books in order: Russell the Sheep, Russell and the Lost Treasure and Russell's Christmas Magic, with page art, the Myer Christmas windows and where to buy.", russell, "#2B3850")
+
+storypage = f'''
+<section class="band paper-band" aria-labelledby="story-h" style="padding-top:clamp(40px,6vw,80px)">
+  <div class="wrap">
+    <p><a href="russell.html#story" style="font-weight:700">&#8592; Back to Russell the Sheep</a></p>
+    <div class="split" style="align-items:start">
+      <div>
+        <p class="kicker" style="color:var(--teal-2)">So how did it all begin?</p>
+        <h1 id="story-h" style="font-size:clamp(2.4rem,5vw,4rem)">Russell&#8217;s story, according to Rob</h1>
+        <div class="prose">{story}</div>
+      </div>
+      <div style="display:grid;gap:22px;position:sticky;top:90px">
+        <div style="width:min(100%,300px)">{zoom("cover-russell","Russell the Sheep book cover","Russell the Sheep, the first book","(max-width:860px) 80vw, 25vw")}</div>
+        <div class="grid c3" style="gap:12px">
+          <img src="img/sheep-photo-1-90.webp" alt="One of the original Frogsbottom sheep" width="90" height="87" style="width:100%;border-radius:12px" loading="lazy">
+          <img src="img/sheep-photo-2-106.webp" alt="A sheep lying in a field in Rutland" width="106" height="85" style="width:100%;border-radius:12px" loading="lazy">
+          <img src="img/sheep-photo-3-90.webp" alt="Sheep sheltering in the shadow of a tree" width="90" height="87" style="width:100%;border-radius:12px" loading="lazy">
+        </div>
+        <p style="font-size:.9rem;color:var(--ink-2)">The original Frogsbottom sheep that Rob came across as he cycled through a field in Rutland, England. It all started with these guys.</p>
+        <div style="display:flex;gap:14px;align-items:flex-end"><img src="img/russell-counting-215.webp" alt="Russell counting his feet" width="215" height="219" style="width:120px" loading="lazy"><img src="img/frankie-75.webp" alt="Frankie the frog" width="75" height="194" style="width:50px" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+'''
+pages['russells-story.html'] = shell('russells-story.html', "Russell's story | Rob Scotton", "How Russell the Sheep came to be, in Rob Scotton's own words: a bike ride through a field in Rutland and a flock of staring sheep.", storypage, "#F2EBDD")
 
 # ================= MAX =================
 maxp = f'''

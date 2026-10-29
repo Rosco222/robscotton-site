@@ -194,6 +194,74 @@
     });
   })();
 
+  // Russell page drawers: effect layers pinned to the painting, plus sparks, lantern glow and counting
+  (function(){
+    var layers=document.querySelectorAll('.fx[data-fx]');
+    if(!layers.length) return;
+    var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function fit(fx){
+      var host=fx.parentNode,img=host.querySelector('.bg img');
+      if(!img||!img.naturalWidth) return;
+      var hb=host.getBoundingClientRect(),ib=img.getBoundingClientRect();
+      var W=ib.width,H=ib.height,ar=img.naturalWidth/img.naturalHeight;
+      var sc=Math.max(W/ar,H),rw=ar*sc,rh=sc;
+      var op=getComputedStyle(img).objectPosition.split(' ');
+      var ox=parseFloat(op[0])/100,oy=parseFloat(op[1]||'50')/100;
+      fx.style.left=(ib.left-hb.left+(W-rw)*(isNaN(ox)?.5:ox))+'px';fx.style.top=(ib.top-hb.top+(H-rh)*(isNaN(oy)?.5:oy))+'px';
+      fx.style.width=rw+'px';fx.style.height=rh+'px';
+      fx.style.setProperty('--gx',fx.dataset.x+'%');fx.style.setProperty('--gy',fx.dataset.y+'%');
+    }
+    function fitAll(){layers.forEach(fit);}
+    layers.forEach(function(fx){
+      var img=fx.parentNode.querySelector('.bg img');
+      if(img){ if(img.complete) fit(fx); img.addEventListener('load',function(){fit(fx);}); }
+    });
+    var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(fitAll,120);});
+    if(reduce||!Element.prototype.animate) return;
+
+    function whenVisible(el,cb){
+      var on=false;
+      if('IntersectionObserver' in window) new IntersectionObserver(function(es){on=es[0].isIntersecting;cb(on);}).observe(el); else cb(true);
+    }
+    layers.forEach(function(fx){
+      var kind=fx.dataset.fx,timer=null;
+      if(kind==='sparks'){
+        var live=0;
+        function spark(n){
+          for(var i=0;i<n&&live<70;i++){
+            var s=document.createElement('i');s.className='spark';
+            var sz=1.5+Math.random()*2.5;s.style.setProperty('--s',sz+'px');
+            s.style.left=fx.dataset.x+'%';s.style.top=fx.dataset.y+'%';
+            fx.appendChild(s);live++;
+            var unit=fx.clientWidth/1000; // scale the throw with the picture
+            var ang=(-170+Math.random()*160)*Math.PI/180,v=(120+Math.random()*260)*unit,g=900*unit,T=.45+Math.random()*.7;
+            var kf=[];for(var k=0;k<=4;k++){var t=T*k/4;kf.push({transform:'translate('+(Math.cos(ang)*v*t)+'px,'+(Math.sin(ang)*v*t+.5*g*t*t)+'px) scale('+(1-k*.18)+')',opacity:k===4?0:1});}
+            var an=s.animate(kf,{duration:T*1000,easing:'linear'});
+            an.onfinish=(function(el){return function(){el.remove();live--;};})(s);
+          }
+        }
+        var tick=0;
+        function loop(){ tick++; spark(tick%28===0?16:(Math.random()<.7?2:0)); timer=setTimeout(loop,55); }
+        whenVisible(fx.parentNode,function(on){clearTimeout(timer);if(on)loop();});
+      }
+      if(kind==='count'){
+        var n=0;
+        function count(){
+          n=n%99+1;
+          var e=document.createElement('i');e.className='count-n';e.textContent=n;
+          var x=parseFloat(fx.dataset.x)+(Math.random()*14-7),y=parseFloat(fx.dataset.y)+(Math.random()*12-6);
+          e.style.left=x+'%';e.style.top=y+'%';e.style.fontSize=(fx.clientWidth*(.022+Math.random()*.018))+'px';
+          fx.appendChild(e);
+          var dx=(Math.random()*80-40)*(fx.clientWidth/1000),dy=-(160+Math.random()*120)*(fx.clientWidth/1000);
+          var an=e.animate([{opacity:0,transform:'translate(-50%,-50%) scale(.6)'},{opacity:.95,transform:'translate(calc(-50% + '+dx*.25+'px),calc(-50% + '+dy*.25+'px)) scale(1)',offset:.25},{opacity:0,transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) scale(1.1) rotate('+(Math.random()*30-15)+'deg)'}],{duration:3200,easing:'ease-out'});
+          an.onfinish=function(){e.remove();};
+          timer=setTimeout(count,900+Math.random()*700);
+        }
+        whenVisible(fx.parentNode,function(on){clearTimeout(timer);if(on)count();});
+      }
+    });
+  })();
+
   // Floating splatthecat.com tab after a little scrolling
   var fl=document.querySelector('.floater');
   if(fl){ var shown=false; window.addEventListener('scroll',function(){ if(!shown&&window.scrollY>420){fl.classList.add('show');shown=true;} },{passive:true}); }
