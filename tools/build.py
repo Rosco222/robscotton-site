@@ -363,7 +363,7 @@ russell = f'''
   <div class="wrap"><div class="copy">
     <p class="kicker">Book one, 2005</p>
     <h1>Russell the Sheep</h1>
-    <p class="lede">The woolly hero of Frogsbottom Field. Russell cannot get to sleep, so he counts things: his feet, the stars, every sheep in the field. Then he finds the Lost Treasure of Frogsbottom, and on a snowy night in Firefly Wood, he saves Christmas. A busy sheep.</p>
+    <p class="lede">Night falls on Frogsbottom Field and every sheep is fast asleep, except Russell. He tries everything: a new hat, a bed up a tree, counting his feet, counting the stars. There&#8217;s only one thing left to try. Counting sheep!</p>
     <a class="btn teal" href="#buy">Where to buy {ARROW}</a>
     {drw_chips}
   </div></div>
