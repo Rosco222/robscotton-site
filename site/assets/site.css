@@ -609,3 +609,12 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
   .drw-strip .drw-chips::-webkit-scrollbar{display:none}
   .drw-strip .drw-chips a{white-space:nowrap}
 }
+
+/* Max header on phones: words first on night blue, then the moonlit picture clear underneath */
+@media (max-width:760px){
+  .hdr.mstack{display:flex;flex-direction:column;align-items:stretch;padding:0;min-height:0}
+  .mstack .wrap{order:1;display:block;padding-top:34px;padding-bottom:26px}
+  .mstack .bg{position:relative;inset:auto;order:2}
+  .mstack .bg img{height:auto;aspect-ratio:1.3;object-fit:cover;object-position:90% 50%;display:block}
+  .mstack .fade{display:none}
+}

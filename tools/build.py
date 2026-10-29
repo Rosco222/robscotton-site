@@ -503,10 +503,9 @@ pages['russells-story.html'] = shell('russells-story.html', "Russell's story | R
 
 # ================= MAX =================
 maxp = f'''
-<header class="hdr hdr-max on-dark">
-  <div class="bg">{pic("hdr-max","","100vw",lazy=False)}</div>
+<header class="hdr hdr-max on-dark mstack">
+  <div class="bg">{pic("hdr-max","","100vw",lazy=False)}<div class="bubbles" aria-hidden="true"></div></div>
   <div class="fade"></div>
-  <div class="bubbles" aria-hidden="true"></div>
   <div class="wrap"><div class="copy">
     <p class="kicker">New from Rob Scotton</p>
     <h1>Max and Moonbean</h1>
