@@ -369,7 +369,8 @@ russell = f'''
   </div></div>
 </header>
 <section class="band tight inside" aria-label="Pictures from Russell the Sheep">
-  <div class="wrap"><div class="grid c3">
+  <div class="wrap"><div class="inside-row">
+    <figure style="margin:0" class="art tilt-l">{pic("cover-russell-sheep","Russell the Sheep book cover","(max-width:860px) 45vw, 22vw")}</figure>
     {zoom("russell-what-to-do","Russell standing wide awake in his striped nightcap","What&#8217;s a sheep to do?")}
     {zoom("russell-swing","Russell swinging from a tree while Frankie clings to the trunk","One more try")}
     {zoom("russell-sleeps","Russell asleep under a patchwork quilt","Russell sleeps, at last!")}
@@ -389,7 +390,8 @@ russell = f'''
   <img class="frankie-peek" src="img/frankie-grin-193.webp" alt="" width="193" height="505" loading="lazy">
 </section>
 <section class="band tight inside" aria-label="Pictures from Russell and the Lost Treasure">
-  <div class="wrap"><div class="grid c3">
+  <div class="wrap"><div class="inside-row">
+    <figure style="margin:0" class="art tilt-l">{pic("cover-russell-treasure","Russell and the Lost Treasure book cover","(max-width:860px) 45vw, 22vw")}</figure>
     {zoom("russell-lt-plan","Russell peeping over a long scroll of drawings for a treasure-hunting machine","The big plan")}
     {zoom("russell-lt-auntie-uncle","Two sheep in sunglasses riding in a battered old car","Auntie and Uncle, out for a spin")}
     {zoom("russell-lt-shares","Russell reading from a glowing book to the flock under the night sky","Russell shares his treasure")}
@@ -451,10 +453,10 @@ russell = f'''
 
 {buy_section("Where to buy Russell",
   "Russell the Sheep was first published by HarperCollins in the US and HarperCollins Children's Books in the UK. Choose your country to see the right editions.",
-  [buy_card("Russell the Sheep","The original story of a sheep who cannot sleep.","cover-russell",
+  [buy_card("Russell the Sheep","The original story of a sheep who cannot sleep.","cover-russell-sheep",
       [("Paperback","9780062392435"),("Board book","9780061709968"),("Hardcover","9780060598488")],
       [("UK edition","9780007206223")]),
-   buy_card("Russell and the Lost Treasure","Russell goes looking for treasure in Frogsbottom Field.",None,
+   buy_card("Russell and the Lost Treasure","Russell goes looking for treasure in Frogsbottom Field.","cover-russell-treasure",
       [("Hardcover","9780060598518")],
       [("UK edition","9780007206254")]),
    buy_card("Russell&#8217;s Christmas Magic","Santa crashes in Firefly Wood, and Russell has a woolly idea.","cover-russell-xmas",
@@ -484,7 +486,7 @@ storypage = f'''
         <div class="prose">{story}</div>
       </div>
       <div style="display:grid;gap:22px;position:sticky;top:90px">
-        <div style="width:min(100%,300px)">{zoom("cover-russell","Russell the Sheep book cover","Russell the Sheep, the first book","(max-width:860px) 80vw, 25vw")}</div>
+        <div style="width:min(100%,300px)">{zoom("cover-russell-sheep","Russell the Sheep book cover","Russell the Sheep, the first book","(max-width:860px) 80vw, 25vw")}</div>
         <div class="grid c3" style="gap:12px">
           <img src="img/sheep-photo-1-90.webp" alt="One of the original Frogsbottom sheep" width="90" height="87" style="width:100%;border-radius:12px" loading="lazy">
           <img src="img/sheep-photo-2-106.webp" alt="A sheep lying in a field in Rutland" width="106" height="85" style="width:100%;border-radius:12px" loading="lazy">
