@@ -156,7 +156,8 @@
     var big=i%6===0;
     b.className=big?'tw big':'tw';
     b.style.setProperty('--s',(big?6+Math.random()*5:2+Math.random()*3)+'px');
-    var x,y;do{x=3+Math.random()*94;y=2+Math.pow(Math.random(),1.4)*68;}while(x>60&&x<82&&y>20); // keep clear of Russell
+    var nr=window.innerWidth<=760,a0=nr?36:60,a1=nr?66:82; // where Russell stands: phone crop vs wide header
+    var x,y;do{x=3+Math.random()*94;y=2+Math.pow(Math.random(),1.4)*68;}while(x>a0&&x<a1&&y>20); // keep clear of Russell
     b.style.setProperty('--x',x+'%');
     b.style.setProperty('--y',y+'%');
     b.style.setProperty('--d',(2+Math.random()*3.5)+'s');

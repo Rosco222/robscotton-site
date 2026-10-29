@@ -598,3 +598,14 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
   .frankie-peek{width:64px}
 }
 @media (prefers-reduced-motion:reduce){.frankie-peek,.torch-glow,.lantern-glow{animation:none}}
+
+/* Russell page: the book-jump pills sit on their own strip under the starry header */
+.drw-strip{background:#2B3850;border-top:1px solid rgba(255,255,255,.08)}
+.drw-strip .drw-chips{margin:0;padding:14px 0;justify-content:center}
+.hdr-russell .bg .twinkle{position:absolute;inset:0}
+@media (max-width:760px){
+  .hdr-russell.drawer .bg img{aspect-ratio:1.15;object-position:93% 50%}
+  .drw-strip .drw-chips{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding:12px 0;scrollbar-width:none}
+  .drw-strip .drw-chips::-webkit-scrollbar{display:none}
+  .drw-strip .drw-chips a{white-space:nowrap}
+}

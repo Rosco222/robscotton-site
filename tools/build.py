@@ -356,18 +356,17 @@ DRAWERS = [("russell-the-sheep","Russell the Sheep"),("lost-treasure","Lost Trea
 drw_chips = '<nav class="drw-chips" aria-label="On this page">' + "".join(f'<a href="#{k}">{t}</a>' for k,t in DRAWERS) + '</nav>'
 
 russell = f'''
-<header class="hdr hdr-russell" id="russell-the-sheep">
-  <div class="bg">{pic("hdr-russell","","100vw",lazy=False)}</div>
+<header class="hdr hdr-russell drawer" id="russell-the-sheep">
+  <div class="bg">{pic("hdr-russell","","100vw",lazy=False)}<div class="twinkle" aria-hidden="true"></div></div>
   <div class="fade"></div>
-  <div class="twinkle" aria-hidden="true"></div>
   <div class="wrap"><div class="copy">
     <p class="kicker">Book one, 2005</p>
     <h1>Russell the Sheep</h1>
     <p class="lede">Night falls on Frogsbottom Field and every sheep is fast asleep, except Russell. He tries everything: a new hat, a bed up a tree, counting his feet, counting the stars. There&#8217;s only one thing left to try. Counting sheep!</p>
     <a class="btn teal" href="#buy">Where to buy {ARROW}</a>
-    {drw_chips}
   </div></div>
 </header>
+<div class="drw-strip"><div class="wrap">{drw_chips}</div></div>
 <section class="band tight inside" aria-label="Pictures from Russell the Sheep">
   <div class="wrap"><div class="inside-row">
     <figure style="margin:0" class="art tilt-l">{pic("cover-russell-sheep","Russell the Sheep book cover","(max-width:860px) 45vw, 22vw")}</figure>
