@@ -151,18 +151,48 @@
     b.style.setProperty('--delay',(-Math.random()*20)+'s');
   });
 
-  // Twinkling stars (Russell counting stars). Bias the stars into the sky, away from the hill.
-  field('.twinkle',56,function(b,i){
-    var big=i%7===0;
+  // Twinkling stars (Russell counting stars). Bias the stars into the sky, away from Russell.
+  field('.twinkle',84,function(b,i){
+    var big=i%6===0;
     b.className=big?'tw big':'tw';
-    b.style.setProperty('--s',(big?5+Math.random()*4:1.5+Math.random()*2.5)+'px');
+    b.style.setProperty('--s',(big?6+Math.random()*5:2+Math.random()*3)+'px');
     var x,y;do{x=3+Math.random()*94;y=2+Math.pow(Math.random(),1.4)*68;}while(x>60&&x<82&&y>20); // keep clear of Russell
     b.style.setProperty('--x',x+'%');
     b.style.setProperty('--y',y+'%');
-    b.style.setProperty('--d',(2.4+Math.random()*4)+'s');
+    b.style.setProperty('--d',(2+Math.random()*3.5)+'s');
     b.style.setProperty('--delay',(-Math.random()*6)+'s');
   });
-  document.querySelectorAll('.twinkle').forEach(function(h){var s=document.createElement('i');s.className='shoot';h.appendChild(s);});
+
+  // Shooting stars: six paths across the sky, fired in random order, 2 to 6 seconds apart
+  (function(){
+    var hosts=document.querySelectorAll('.twinkle');
+    if(!hosts.length||!Element.prototype.animate) return;
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // [start x, start y, end x, end y] as fractions of the header; all stay in the sky
+    var PATHS=[[.80,.07,.60,.30],[.97,.05,.84,.22],[.56,.04,.40,.22],[.62,.10,.86,.19],[.99,.20,.86,.44],[.32,.03,.12,.17]];
+    hosts.forEach(function(host){
+      var last=-1,timer=null,visible=true;
+      function shoot(){
+        if(!visible||document.hidden){timer=setTimeout(shoot,1500);return;}
+        var k;do{k=Math.floor(Math.random()*PATHS.length);}while(k===last);last=k;
+        var p=PATHS[k],W=host.clientWidth,H=host.clientHeight;
+        var x0=p[0]*W,y0=p[1]*H,dx=(p[2]-p[0])*W,dy=(p[3]-p[1])*H;
+        var ang=Math.atan2(dy,dx)*180/Math.PI,len=90+Math.random()*80,dur=650+Math.random()*500;
+        var s=document.createElement('i');s.className='shoot';
+        s.style.width=len+'px';s.style.left=(x0-len)+'px';s.style.top=y0+'px';
+        host.appendChild(s);
+        var r='rotate('+ang+'deg)';
+        var an=s.animate([
+          {opacity:0,transform:'translate(0,0) '+r+' scaleX(.2)'},
+          {opacity:1,transform:'translate('+dx*.2+'px,'+dy*.2+'px) '+r+' scaleX(1)',offset:.2},
+          {opacity:0,transform:'translate('+dx+'px,'+dy+'px) '+r+' scaleX(.6)'}
+        ],{duration:dur,easing:'cubic-bezier(.3,.1,.6,1)'});
+        an.onfinish=function(){s.remove();timer=setTimeout(shoot,2000+Math.random()*4000);};
+      }
+      if('IntersectionObserver' in window){new IntersectionObserver(function(es){visible=es[0].isIntersecting;}).observe(host);}
+      timer=setTimeout(shoot,1200+Math.random()*1500);
+    });
+  })();
 
   // Floating splatthecat.com tab after a little scrolling
   var fl=document.querySelector('.floater');
