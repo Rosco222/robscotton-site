@@ -151,6 +151,19 @@
     b.style.setProperty('--delay',(-Math.random()*20)+'s');
   });
 
+  // Twinkling stars (Russell counting stars). Bias the stars into the sky, away from the hill.
+  field('.twinkle',56,function(b,i){
+    var big=i%7===0;
+    b.className=big?'tw big':'tw';
+    b.style.setProperty('--s',(big?5+Math.random()*4:1.5+Math.random()*2.5)+'px');
+    var x,y;do{x=3+Math.random()*94;y=2+Math.pow(Math.random(),1.4)*68;}while(x>60&&x<82&&y>20); // keep clear of Russell
+    b.style.setProperty('--x',x+'%');
+    b.style.setProperty('--y',y+'%');
+    b.style.setProperty('--d',(2.4+Math.random()*4)+'s');
+    b.style.setProperty('--delay',(-Math.random()*6)+'s');
+  });
+  document.querySelectorAll('.twinkle').forEach(function(h){var s=document.createElement('i');s.className='shoot';h.appendChild(s);});
+
   // Floating splatthecat.com tab after a little scrolling
   var fl=document.querySelector('.floater');
   if(fl){ var shown=false; window.addEventListener('scroll',function(){ if(!shown&&window.scrollY>420){fl.classList.add('show');shown=true;} },{passive:true}); }

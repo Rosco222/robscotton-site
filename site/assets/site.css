@@ -525,3 +525,17 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
   .hero-stage .note{width:calc(clamp(18px,5.4vw,30px) * var(--sz,1));--k:.55}
 }
 @media (prefers-reduced-motion:reduce){.hero-stage .note{animation:none;opacity:0}}
+
+/* Twinkling stars for the Russell header: stars that brighten and fade, plus a rare shooting star */
+.twinkle{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.twinkle .tw{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:#fff;
+  box-shadow:0 0 calc(var(--s) * 2) rgba(255,255,240,.85);opacity:.2;animation:twinkle var(--d) ease-in-out var(--delay) infinite}
+.twinkle .tw.big{background:radial-gradient(circle,#fff 0 35%,rgba(255,250,220,0) 70%);box-shadow:none}
+.twinkle .tw.big::before,.twinkle .tw.big::after{content:"";position:absolute;left:50%;top:50%;width:calc(var(--s) * 3.2);height:1.5px;
+  background:linear-gradient(90deg,rgba(255,255,240,0),#fffdf2,rgba(255,255,240,0));transform:translate(-50%,-50%)}
+.twinkle .tw.big::after{transform:translate(-50%,-50%) rotate(90deg)}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.6)}45%{opacity:1;transform:scale(1.15)}60%{opacity:.85;transform:scale(1)}}
+.twinkle .shoot{position:absolute;top:12%;left:72%;width:120px;height:2px;border-radius:2px;opacity:0;
+  background:linear-gradient(90deg,rgba(255,255,255,0),#fff);transform-origin:100% 50%;transform:rotate(156deg);animation:shoot 13s ease-out 4s infinite}
+@keyframes shoot{0%,88%{opacity:0;transform:translate(0,0) rotate(156deg) scaleX(.3)}90%{opacity:1}97%{opacity:0;transform:translate(-260px,115px) rotate(156deg) scaleX(1)}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.twinkle .tw{animation:none;opacity:.7}.twinkle .shoot{display:none}}

@@ -356,7 +356,7 @@ russell = f'''
 <header class="hdr hdr-russell">
   <div class="bg">{pic("hdr-russell","","100vw",lazy=False)}</div>
   <div class="fade"></div>
-  <div class="snow" aria-hidden="true"></div>
+  <div class="twinkle" aria-hidden="true"></div>
   <div class="wrap"><div class="copy">
     <p class="kicker">Rob Scotton's</p>
     <h1>Russell the Sheep</h1>
