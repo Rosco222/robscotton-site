@@ -773,6 +773,10 @@ WALLS = [
   ("russell-lt-reflecting","Russell on a hilltop at night with the flock gathered below","Reflecting","a quiet night on the hill"),
   ("russell-art-1","Russell making a snow angel with Frankie the frog","Snow angels","Frankie joins in"),
   ("russell-art-2","Russell carrying Frankie past glowing lanterns in the snow","Russell's Christmas Magic","lanterns in the wood"),
+  ("russell-come-with-us","Russell's long striped nightcap snaking across the snow, with Frankie the frog in a Santa hat riding on his back","Come with us","Frankie hitches a ride"),
+  ("russell-santa-crashed","Santa sitting dazed in the snow beside his toppled sleigh and tangled reindeer, with Russell peeping out from behind a tree","Crash landing","presents everywhere"),
+  ("russell-all-the-houses","Santa with his sack and Russell in his striped nightcap on a snowy rooftop above a town of tall houses","All the houses","one rooftop at a time"),
+  ("russell-baa-baa-bad","Two scruffy rascals in red waistcoats and striped hats, one carrying a crook with a lantern, each with a little spider","Baa Baa Bad","a pair of rascals"),
  ]),
  ("splat", "Splat the Cat", "Prints and page art from Splat's books. There's plenty more on Splat's own site.", [
   ("print-ahh-kitten","Kitten, a white fluffy cat with a bow, and Splat","Ahh, Kitten","toothbrush in paw"),

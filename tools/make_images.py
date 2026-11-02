@@ -79,6 +79,19 @@ for name, f in RUSSELL_NEW.items():
     if os.path.exists(p):
         content(name, Image.open(p).convert('RGB'), False)
 
+# ---------- Russell gallery pieces supplied November 2026 (For Claude/Russell the Sheep Assets) ----------
+RSRC2 = '/mnt/user-data/uploads/For Claude/Russell the Sheep Assets'
+RUSSELL_NOV = {
+    'russell-come-with-us': 'COME WITH US.jpg',
+    'russell-santa-crashed': 'Santa Crashed .jpg',
+    'russell-all-the-houses': 'p.28 ALL THE HOUSES 2 rev .jpg',
+    'russell-baa-baa-bad': 'Baa-Baa-Bad-revise 2-1.jpg',
+}
+for name, f in RUSSELL_NOV.items():
+    p = os.path.join(RSRC2, f)
+    if os.path.exists(p):
+        content(name, Image.open(p).convert('RGB'), False)
+
 # Seymour for the Splat page cast card
 _sp = Image.open('/mnt/user-data/uploads/For Claude/Seymour/Semour Pose 1.png').convert('RGBA')
 if True:
