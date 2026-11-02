@@ -216,7 +216,7 @@ def isbn10(i13):
     return core+('X' if c==10 else str(c))
 
 US_SHOPS=[("HarperCollins","https://www.harpercollins.com/search?q={i13}"),("Amazon","https://www.amazon.com/dp/{i10}"),("Barnes &amp; Noble","https://www.barnesandnoble.com/s/{i13}"),("Bookshop.org","https://bookshop.org/search?keywords={i13}")]
-UK_SHOPS=[("Amazon UK","https://www.amazon.co.uk/s?k={i13}&amp;i=stripbooks"),("Blackwell&#8217;s","https://blackwells.co.uk/bookshop/search/?keyword={i13}"),("Bookshop.org UK","https://uk.bookshop.org/search?keywords={i13}")]
+UK_SHOPS=[("Amazon UK","https://www.amazon.co.uk/s?k={i13}&amp;i=stripbooks"),("Blackwell’s","https://blackwells.co.uk/bookshop/search/?keyword={i13}"),("Bookshop.org UK","https://uk.bookshop.org/search?keywords={i13}")]
 
 def shop_links(i13, shops):
     return "".join(f'<a class="shop" href="{u.format(i13=i13,i10=isbn10(i13))}" target="_blank" rel="noopener">{n}</a>' for n,u in shops)
@@ -235,7 +235,7 @@ def buy_section(heading, intro, cards, regions=False):
   <div class="wrap">
     <div class="buy-head"><div><h2 id="buy-h">{heading}</h2><p class="lede">{intro}</p></div>{toggle}</div>
     <div class="buy-grid" data-buy>{"".join(cards)}</div>
-    <p class="buy-fine">Links open the retailer&#8217;s own site. Availability, editions and prices are set by each retailer.</p>
+    <p class="buy-fine">Links open the retailer’s own site. Availability, editions and prices are set by each retailer.</p>
   </div>
 </section>
 '''
@@ -352,7 +352,7 @@ story = """<p>I was riding my bike through a field in Rutland, near where I live
 <blockquote>By Granny Oldwool’s beard, there may be something there…</blockquote>
 <p>Oh, and of course, there’s also a little frog… and an ant. Job done!</p>"""
 
-DRAWERS = [("russell-the-sheep","Russell the Sheep"),("lost-treasure","Lost Treasure"),("christmas-magic","Christmas Magic"),("story","Russell&#8217;s story")]
+DRAWERS = [("russell-the-sheep","Russell the Sheep"),("lost-treasure","Lost Treasure"),("christmas-magic","Christmas Magic"),("story","Russell’s story")]
 drw_chips = '<nav class="drw-chips" aria-label="On this page">' + "".join(f'<a href="#{k}">{t}</a>' for k,t in DRAWERS) + '</nav>'
 
 russell = f'''
@@ -362,7 +362,7 @@ russell = f'''
   <div class="wrap"><div class="copy">
     <p class="kicker">Book one, 2005</p>
     <h1>Russell the Sheep</h1>
-    <p class="lede">Night falls on Frogsbottom Field and every sheep is fast asleep, except Russell. He tries everything: a new hat, a bed up a tree, counting his feet, counting the stars. There&#8217;s only one thing left to try. Counting sheep!</p>
+    <p class="lede">Night falls on Frogsbottom Field and every sheep is fast asleep, except Russell. He tries everything: a new hat, a bed up a tree, counting his feet, counting the stars. There’s only one thing left to try. Counting sheep!</p>
     <a class="btn teal" href="#buy">Where to buy {ARROW}</a>
   </div></div>
 </header>
@@ -370,7 +370,7 @@ russell = f'''
 <section class="band tight inside" aria-label="Pictures from Russell the Sheep">
   <div class="wrap"><div class="inside-row">
     <figure style="margin:0" class="art tilt-l">{pic("cover-russell-sheep","Russell the Sheep book cover","(max-width:860px) 45vw, 22vw")}</figure>
-    {zoom("russell-what-to-do","Russell standing wide awake in his striped nightcap","What&#8217;s a sheep to do?")}
+    {zoom("russell-what-to-do","Russell standing wide awake in his striped nightcap","What’s a sheep to do?")}
     {zoom("russell-swing","Russell swinging from a tree while Frankie clings to the trunk","One more try")}
     {zoom("russell-sleeps","Russell asleep under a patchwork quilt","Russell sleeps, at last!")}
   </div></div>
@@ -383,7 +383,7 @@ russell = f'''
   <div class="wrap"><div class="copy">
     <p class="kicker">Book two, 2006</p>
     <h2 id="treasure-h">Russell and the Lost Treasure</h2>
-    <p class="lede">Legend has it there&#8217;s a treasure lost somewhere in Frogsbottom Field. Russell builds a homemade treasure detector and goes looking, and the chest he finds holds a surprising prize.</p>
+    <p class="lede">Legend has it there’s a treasure lost somewhere in Frogsbottom Field. Russell builds a homemade treasure detector and goes looking, and the chest he finds holds a surprising prize.</p>
     <a class="btn teal" href="#buy">Where to buy {ARROW}</a>
   </div></div>
   <img class="frankie-peek" src="img/frankie-grin-193.webp" alt="" width="193" height="505" loading="lazy">
@@ -404,18 +404,18 @@ russell = f'''
   <div class="snow" aria-hidden="true"></div>
   <div class="wrap"><div class="copy">
     <p class="kicker">Book three, 2007</p>
-    <h2 id="xmas-h">Russell&#8217;s Christmas Magic</h2>
-    <p class="lede">Santa Claus&#8217;s sleigh crashes in Firefly Wood and the Christmas Spell is broken. Santa declares that Christmas must be cancelled. But our fleecy hero doesn&#8217;t give up easily, and he soon has a woolly idea that just might save the day.</p>
+    <h2 id="xmas-h">Russell’s Christmas Magic</h2>
+    <p class="lede">Santa Claus’s sleigh crashes in Firefly Wood and the Christmas Spell is broken. Santa declares that Christmas must be cancelled. But our fleecy hero doesn’t give up easily, and he soon has a woolly idea that just might save the day.</p>
     <a class="btn teal" href="#buy">Where to buy {ARROW}</a>
   </div></div>
 </section>
 <section class="band tight inside" aria-label="Pictures from Russell's Christmas Magic">
   <div class="wrap">
     <div class="inside-row">
-      <figure style="margin:0" class="art tilt-l">{pic("cover-russell-xmas","Russell&#8217;s Christmas Magic book cover","(max-width:860px) 60vw, 22vw")}</figure>
-      {zoom("russell-p8","Russell trudging through the snow","Russell&#8217;s Christmas Magic")}
-      {zoom("russell-p9","Russell listening at the edge of the wood","Russell&#8217;s Christmas Magic")}
-      {zoom("russell-art-14","Santa&#8217;s crashed sleigh in the snow","Russell&#8217;s Christmas Magic")}
+      <figure style="margin:0" class="art tilt-l">{pic("cover-russell-xmas","Russell’s Christmas Magic book cover","(max-width:860px) 60vw, 22vw")}</figure>
+      {zoom("russell-p8","Russell trudging through the snow","Russell’s Christmas Magic")}
+      {zoom("russell-p9","Russell listening at the edge of the wood","Russell’s Christmas Magic")}
+      {zoom("russell-art-14","Santa’s crashed sleigh in the snow","Russell’s Christmas Magic")}
     </div>
   </div>
 </section>
@@ -444,9 +444,9 @@ russell = f'''
   <div class="fx" data-fx="count" data-x="54" data-y="52" aria-hidden="true"></div>
   <div class="wrap"><div class="copy">
     <p class="kicker">So how did it all begin?</p>
-    <h2 id="story-h">Russell&#8217;s story, according to Rob</h2>
-    <p class="lede">A bike ride through a field in Rutland, a flock of sheep staring back, and an idea Rob kept dismissing. Here&#8217;s how Russell came to be.</p>
-    <a class="btn" href="russells-story.html">Read Russell&#8217;s story {ARROW}</a>
+    <h2 id="story-h">Russell’s story, according to Rob</h2>
+    <p class="lede">A bike ride through a field in Rutland, a flock of sheep staring back, and an idea Rob kept dismissing. Here’s how Russell came to be.</p>
+    <a class="btn" href="russells-story.html">Read Russell’s story {ARROW}</a>
   </div></div>
 </section>
 
@@ -458,7 +458,7 @@ russell = f'''
    buy_card("Russell and the Lost Treasure","Russell goes looking for treasure in Frogsbottom Field.","cover-russell-treasure",
       [("Hardcover","9780060598518")],
       [("UK edition","9780007206254")]),
-   buy_card("Russell&#8217;s Christmas Magic","Santa crashes in Firefly Wood, and Russell has a woolly idea.","cover-russell-xmas",
+   buy_card("Russell’s Christmas Magic","Santa crashes in Firefly Wood, and Russell has a woolly idea.","cover-russell-xmas",
       [("Hardcover","9780060598549")],
       [("UK edition","9780007262946")])],
   regions=True)}
@@ -481,7 +481,7 @@ storypage = f'''
     <div class="split" style="align-items:start">
       <div>
         <p class="kicker" style="color:var(--teal-2)">So how did it all begin?</p>
-        <h1 id="story-h" style="font-size:clamp(2.4rem,5vw,4rem)">Russell&#8217;s story, according to Rob</h1>
+        <h1 id="story-h" style="font-size:clamp(2.4rem,5vw,4rem)">Russell’s story, according to Rob</h1>
         <div class="prose">{story}</div>
       </div>
       <div style="display:grid;gap:22px;position:sticky;top:90px">
@@ -580,7 +580,7 @@ about = f'''
       <p class="kicker">Author and artist</p>
       <h1>Meet Rob</h1>
       <p class="lede" style="color:var(--ink)">Rob Scotton is the bestselling author and illustrator behind Splat the Cat, Russell the Sheep and Max and Moonbean. He studied Illustration at De Montfort University, and lives and paints in Rutland, England, with his wife Liz, who is also an artist.</p>
-      <p>Splat began with a neighbour&#8217;s cat, a garden fence and a rather undignified landing. Seymour has been along for the ride since the very first book.</p>
+      <p>Splat began with a neighbour’s cat, a garden fence and a rather undignified landing. Seymour has been along for the ride since the very first book.</p>
     </div>
     <div class="stage"><figure class="art" style="margin:0;width:min(100%,420px);border-radius:50% 50% 46% 46% / 42% 42% 58% 58%">{pic("author","Rob Scotton","(max-width:860px) 80vw, 36vw",lazy=False)}</figure></div>
   </div>
@@ -592,12 +592,12 @@ about = f'''
       <div class="prose big">
         <p class="kicker">The long version</p>
         <h2 id="bio-h">From sketchbook to bookshelf</h2>
-        <p>Rob&#8217;s characters have a knack for finding adventure in everyday life, particularly when everyday life isn&#8217;t going quite according to plan.</p>
+        <p>Rob’s characters have a knack for finding adventure in everyday life, particularly when everyday life isn’t going quite according to plan.</p>
         <p>His own adventure in picture books began at a New York licensing show in 2004, when HarperCollins editor Maria Modugno spotted some of his character artwork. A conversation about a collection of images featuring a sheep named Russell, a cat named Splat, a pup called Max and the worlds they might inhabit led to a publishing home for his creations.</p>
-        <p>The first of those creations to reach the shelves was Russell the Sheep. The idea came on a bike ride through a field near Rob&#8217;s home in Rutland, where a flock of sheep sheltering from the sun shuffled along with the shadow of a tree as it moved. An old Easter card design gave Rob his woolly hero, the name stuck despite the pun, and the story arrived with one simple question: what if a sheep could not fall asleep, no matter how hard he tried? Published by HarperCollins in 2005, Russell the Sheep became Rob&#8217;s first New York Times bestseller, and Russell went on to star in Russell and the Lost Treasure and Russell&#8217;s Christmas Magic. <a href="russell.html">Read Russell&#8217;s story</a>.</p>
-        <p>The inspiration for Splat was most unexpected. While mowing the lawn, Rob watched a neighbour&#8217;s cat lose its balance on a fence and land with considerably less elegance than cats generally advertise. The word &#8220;Splat&#8221; sprang to mind, the lawn was temporarily forgotten, and a character began to take shape. Inspiration, it turns out, is all around.</p>
-        <p>With expressive faces, wayward fur and a fondness for visual mischief, Rob&#8217;s illustrations bring humour to the things that can feel enormous when you&#8217;re small: starting school, making friends, finding courage and getting something wrong. His characters may have paws or wool, but their feelings are reassuringly familiar.</p>
-        <p>Beyond books, Rob&#8217;s artwork has appeared on everything from greeting cards to ceramics and textiles. Quite a journey for a cat whose first significant move was falling off a fence.</p>
+        <p>The first of those creations to reach the shelves was Russell the Sheep. The idea came on a bike ride through a field near Rob’s home in Rutland, where a flock of sheep sheltering from the sun shuffled along with the shadow of a tree as it moved. An old Easter card design gave Rob his woolly hero, the name stuck despite the pun, and the story arrived with one simple question: what if a sheep could not fall asleep, no matter how hard he tried? Published by HarperCollins in 2005, Russell the Sheep became Rob’s first New York Times bestseller, and Russell went on to star in Russell and the Lost Treasure and Russell’s Christmas Magic. <a href="russell.html">Read Russell’s story</a>.</p>
+        <p>The inspiration for Splat was most unexpected. While mowing the lawn, Rob watched a neighbour’s cat lose its balance on a fence and land with considerably less elegance than cats generally advertise. The word &#8220;Splat&#8221; sprang to mind, the lawn was temporarily forgotten, and a character began to take shape. Inspiration, it turns out, is all around.</p>
+        <p>With expressive faces, wayward fur and a fondness for visual mischief, Rob’s illustrations bring humour to the things that can feel enormous when you’re small: starting school, making friends, finding courage and getting something wrong. His characters may have paws or wool, but their feelings are reassuringly familiar.</p>
+        <p>Beyond books, Rob’s artwork has appeared on everything from greeting cards to ceramics and textiles. Quite a journey for a cat whose first significant move was falling off a fence.</p>
       </div>
       <div style="display:grid;gap:22px">
         {zoom("early-sketches","Early pencil sketches of Splat","Early Splat sketches","(max-width:860px) 100vw, 45vw")}
@@ -614,7 +614,7 @@ about = f'''
     <ol class="timeline">
       <li><b>Art school</b><span>Studied Illustration at De Montfort University.</span></li>
       <li><b>2005: Russell the Sheep</b><span>His debut picture book, inspired by the sheep in the fields around his studio, and his first New York Times bestseller.</span></li>
-      <li><b>2008: Splat the Cat</b><span>Splat&#8217;s first day at Cat School, with Seymour hiding in his lunchbox.</span></li>
+      <li><b>2008: Splat the Cat</b><span>Splat’s first day at Cat School, with Seymour hiding in his lunchbox.</span></li>
       <li><b>A whole library</b><span>Dozens of Splat books since, up to Splat the Cat and the Obstacle Course in 2021. <a href="https://splatthecat.com/books.html" target="_blank" rel="noopener">See them all on splatthecat.com</a></span></li>
       <li><b>Max and Moonbean</b><span>A shy pup, a shooting star and a small blue astronaut who talks in bubbles. <a href="max.html">Meet Max</a></span></li>
     </ol>
@@ -646,23 +646,23 @@ def kb(path): return f"{round(os.path.getsize(path)/1024)} KB"
 
 RUSSELL_RES = [
   ("Teaching Ideas", "Ideas across the curriculum",
-   "Find more homophones like Russell and rustle, hunt for sound words, retell the story from the frog&#8217;s point of view, count as high as you can, design a new hat for Russell on a printable sheet, and talk about what helps us relax.",
+   "Find more homophones like Russell and rustle, hunt for sound words, retell the story from the frog’s point of view, count as high as you can, design a new hat for Russell on a printable sheet, and talk about what helps us relax.",
    ["English","Maths","Art","Geography","Wellbeing"], "By Mark Warner, Teaching Ideas", "teachingideas.co.uk",
    "https://www.teachingideas.co.uk/books/russell-the-sheep/", ""),
-  ("Surviving a Teacher&#8217;s Salary", "Crazy counting, Froggy&#8217;s eyes and a sleep cap",
-   "Count together in pairs, hunt the book for its biggest numbers, retell the night through the frog&#8217;s eyes, then make a stripy night cap for a favourite toy from an old sock. For ages 3 to 9.",
-   ["Maths","Writing","Craft"], "By Crystal at Surviving a Teacher&#8217;s Salary", "survivingateacherssalary.com",
+  ("Surviving a Teacher’s Salary", "Crazy counting, Froggy’s eyes and a sleep cap",
+   "Count together in pairs, hunt the book for its biggest numbers, retell the night through the frog’s eyes, then make a stripy night cap for a favourite toy from an old sock. For ages 3 to 9.",
+   ["Maths","Writing","Craft"], "By Crystal at Surviving a Teacher’s Salary", "survivingateacherssalary.com",
    "https://www.survivingateacherssalary.com/russell-the-sheep-lesson-plans-and-activity/", ""),
   ("Teaching notes", "Russell the Sheep teaching notes",
    "Questions for before and after reading, rhyming words and opposites, a word search and crossword, a look at how wool is made, and crafts from thumbprint sheep to cotton-wool lambs.",
    ["Reading","Science","Craft","Drama"], "By Christine Sarandis, shared by Pegi Williams Book Shop", "pegiwilliams.com.au (PDF)",
    "https://www.pegiwilliams.com.au/pdfs/teachernotes/9780007206223.pdf", ""),
   ("MathsThroughStories.org", "Counting forwards and backwards",
-   "Use Russell&#8217;s sleepless counting to practise counting up to, and back from, 10 or 20. For ages 4 and up.",
+   "Use Russell’s sleepless counting to practise counting up to, and back from, 10 or 20. For ages 4 and up.",
    ["Maths"], "By MathsThroughStories.org, University of Reading Institute of Education", "mathsthroughstories.org",
    "https://www.mathsthroughstories.org/russell-the-sheep.html", ""),
   ("Growing Book by Book", "Russell and the Lost Treasure: a family treasure book",
-   "Inspired by Russell&#8217;s treasure hunt, make a little book of the people who are your family treasure, with a photo and a label on every page.",
+   "Inspired by Russell’s treasure hunt, make a little book of the people who are your family treasure, with a photo and a label on every page.",
    ["Reading","Writing","Family"], "By Jodie Rodriguez, Growing Book by Book", "growingbookbybook.com",
    "https://growingbookbybook.com/russell-and-the-lost-treasure-digging-into-treasure-hunting/", "An older page from 2013, so a few of its links may no longer work."),
 ]
@@ -674,7 +674,7 @@ def res_card(provider, title, desc, tags, by, site, url, note):
 
 MAX_SHEETS = [
   ("colouring-sheets","max-colouring-sheets.pdf","Colour in Max","Two colouring sheets drawn by Rob: Max and Mr Ted flying through a shower of jigsaw pieces, and Max at his school desk. Each sheet has a question to talk about while you colour.","landscape, 2 pages"),
-  ("maze","max-moon-maze.pdf","Fly Max to the moon","Moonbean is waiting on the moon. Find the way through the maze from Max&#8217;s bubble.","1 page"),
+  ("maze","max-moon-maze.pdf","Fly Max to the moon","Moonbean is waiting on the moon. Find the way through the maze from Max’s bubble.","1 page"),
   ("code","max-bubble-speak-code.pdf","Bubble-speak secret code","Moonbean talks in bubbles. Use the key to read his message, then write one of your own for a friend.","1 page"),
   ("show","max-show-and-tell.pdf","My show-and-tell","Max found Moonbean. Draw what you would bring, then write about it.","1 page"),
 ]
@@ -702,11 +702,11 @@ activities = f"""
   <div class="wrap">
     <p class="kicker" style="color:var(--teal-2)">Russell the Sheep</p>
     <h2 id="ra-h">Count, colour and craft with Russell</h2>
-    <p class="lede">Start with Rob&#8217;s own colouring sheet, then try ideas from teachers and educators who have used Russell in their classrooms.</p>
+    <p class="lede">Start with Rob’s own colouring sheet, then try ideas from teachers and educators who have used Russell in their classrooms.</p>
 
-    <h3 class="act-sub">From Rob&#8217;s studio</h3>
+    <h3 class="act-sub">From Rob’s studio</h3>
     <div class="dl">
-      <a href="downloads/russell-colouring-sheet.jpg" download><img src="img/russell-colouring-300.webp" alt="" width="300" height="189" loading="lazy"><div><b>Russell&#8217;s Christmas Magic colouring sheet</b><span>Free to print and colour. Download</span></div></a>
+      <a href="downloads/russell-colouring-sheet.jpg" download><img src="img/russell-colouring-300.webp" alt="" width="300" height="189" loading="lazy"><div><b>Russell’s Christmas Magic colouring sheet</b><span>Free to print and colour. Download</span></div></a>
     </div>
 
     <h3 class="act-sub">From teachers and educators</h3>
@@ -719,14 +719,14 @@ activities = f"""
   <div class="wrap">
     <p class="kicker">Max and Moonbean</p>
     <h2 id="ma-h">Printables for little astronauts</h2>
-    <p class="lede">Brand-new activities made for this site from Rob&#8217;s own sketches and paintings. Each one is a single PDF, ready to print.</p>
+    <p class="lede">Brand-new activities made for this site from Rob’s own sketches and paintings. Each one is a single PDF, ready to print.</p>
     <div class="sheet-grid">{"".join(sheet_card(*s) for s in MAX_SHEETS)}</div>
 
     <div class="talk">
       <h3>Talking about the story</h3>
       <p>Questions for reading together at home or in class.</p>
       <ul>
-        <li>Max&#8217;s show-and-tells always seem to go wrong. Have you ever felt nervous about doing something in front of other people? What helped?</li>
+        <li>Max’s show-and-tells always seem to go wrong. Have you ever felt nervous about doing something in front of other people? What helped?</li>
         <li>When the blue thingy appears, Max wants to hide, but he steps forward and asks its name. What does being brave mean to you?</li>
         <li>Moonbean calls Max a &#8220;pup of courage&#8221;. Who helps you feel brave?</li>
         <li>If a shooting star landed in your room tonight, what would you hope to find?</li>
@@ -746,7 +746,7 @@ activities = f"""
 
 <section class="band yellow-band tight" aria-label="Splat activities">
   <div class="wrap" style="display:flex;flex-wrap:wrap;align-items:center;gap:22px;justify-content:space-between">
-    <div style="display:flex;align-items:center;gap:18px"><img src="img/splat-with-book-480.webp" alt="" width="480" height="511" style="width:96px" loading="lazy"><div><h3 style="margin:0">Looking for Splat?</h3><p style="margin:0">Splat&#8217;s colouring pages and lesson plans live on his own website.</p></div></div>
+    <div style="display:flex;align-items:center;gap:18px"><img src="img/splat-with-book-480.webp" alt="" width="480" height="511" style="width:96px" loading="lazy"><div><h3 style="margin:0">Looking for Splat?</h3><p style="margin:0">Splat’s colouring pages and lesson plans live on his own website.</p></div></div>
     <a class="btn red big" href="https://splatthecat.com/activities.html" target="_blank" rel="noopener">Splat activities {EXT}</a>
   </div>
 </section>
