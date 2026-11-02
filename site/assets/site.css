@@ -214,8 +214,10 @@ figcaption{font-size:.9rem;color:var(--ink-2);margin-top:10px}
 .bubbles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .bubbles i{position:absolute;bottom:-80px;width:var(--s);height:var(--s);border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.75) 0,rgba(255,255,255,.18) 28%,rgba(150,200,255,.08) 60%,rgba(255,255,255,.35) 100%);box-shadow:inset -4px -6px 10px rgba(120,160,255,.35),0 0 0 1px rgba(255,255,255,.25);animation:rise var(--d) linear var(--delay) infinite;left:var(--x);opacity:0}
 @keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.9}50%{transform:translateY(-55vh) translateX(18px)}100%{transform:translateY(-115vh) translateX(-10px);opacity:0}}
-.moon-disc{position:absolute;right:-5%;top:-10%;width:clamp(220px,32vw,460px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fff8d6,#f3e3a2 55%,#d9c784 100%);box-shadow:0 0 90px 30px rgba(255,240,180,.25),0 0 240px 80px rgba(255,240,180,.12);pointer-events:none}
+.moon-disc{--m:clamp(140px,20vw,300px);position:absolute;right:calc(var(--m) * -0.22);top:calc(var(--m) * -0.58);width:var(--m);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fff8d6,#f3e3a2 55%,#d9c784 100%);box-shadow:0 0 90px 30px rgba(255,240,180,.25),0 0 240px 80px rgba(255,240,180,.12);pointer-events:none}
 .moon-disc::before{content:"";position:absolute;left:28%;top:22%;width:14%;height:14%;border-radius:50%;background:rgba(0,0,0,.08);box-shadow:30% 60% 0 10px rgba(0,0,0,.05)}
+/* The moon sits up in the corner so it never covers the heading or text */
+@media (max-width:600px){.moon-disc{--m:116px;top:calc(var(--m) * -0.6)}}
 
 /* ---------- Russell band ---------- */
 .snow{position:absolute;inset:0;pointer-events:none;overflow:hidden}
