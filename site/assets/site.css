@@ -620,3 +620,38 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
   .mstack .bg img{height:auto;aspect-ratio:1.3;object-fit:cover;object-position:90% 50%;display:block}
   .mstack .fade{display:none}
 }
+
+/* ---------- Songs page: a book thumbnail under each song; tap it for the story ---------- */
+.frombook{margin-top:26px;max-width:560px}
+.fb-btn{display:flex;align-items:center;gap:18px;background:none;border:0;padding:4px;margin:-4px;cursor:pointer;text-align:left;font:inherit;color:inherit;border-radius:14px}
+.fb-cover{position:relative;flex:0 0 auto;width:86px;transform:rotate(-4deg);transition:transform .3s var(--bounce)}
+.fb-cover img{display:block;width:100%;height:auto;border-radius:3px 7px 7px 3px;box-shadow:0 12px 22px -10px rgba(27,26,31,.55),0 2px 4px rgba(27,26,31,.18)}
+.fb-cover::after{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;border-radius:3px 0 0 3px;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.22) 55%,rgba(255,255,255,0));pointer-events:none}
+.fb-btn:hover .fb-cover,.fb-btn[aria-expanded=true] .fb-cover{transform:rotate(0) translateY(-4px) scale(1.05)}
+.fb-txt small{display:block;font-family:var(--display);font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-2)}
+.fb-txt b{display:block;font-family:var(--display);font-size:1.3rem;line-height:1.15;margin:.1em 0 .15em}
+.fb-txt em{font-style:normal;font-size:.95rem;color:rgba(27,26,31,.62)}
+.fb-more{position:relative;margin:16px 0 0;padding:18px 20px 16px;background:#fff;border-radius:18px;box-shadow:var(--shadow);animation:fbIn .35s var(--ease)}
+.fb-more::before{content:"";position:absolute;top:-8px;left:38px;width:16px;height:16px;background:#fff;transform:rotate(45deg);border-radius:3px}
+.fb-more p{margin:0 0 12px;font-size:1rem;line-height:1.6}
+.fb-link{display:inline;font-family:var(--display);font-weight:800;color:var(--red);text-decoration:none}
+.fb-link svg{width:18px;height:18px;vertical-align:-3px;margin-left:4px}
+.fb-link:hover{text-decoration:underline}
+@keyframes fbIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fb-cover,.fb-more{transition:none;animation:none}}
+.song-band{scroll-margin-top:66px}
+.songs-hero{background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);padding-bottom:clamp(40px,6vw,80px)}
+.phero .songs-stage{min-height:clamp(220px,32vw,440px);align-items:center}
+.phero .songs-stage img{position:absolute;width:min(54%,300px);border-radius:16px;box-shadow:var(--shadow);filter:none}
+.phero .songs-stage .s1{left:8%;top:6%;transform:rotate(-7deg)}
+.phero .songs-stage .s2{right:8%;bottom:4%;transform:rotate(6deg)}
+@media (max-width:860px){.phero .songs-stage{min-height:min(80vw,420px);margin-top:16px}}
+
+/* ---------- a song teaser on a book page, pointing to the Songs page ---------- */
+.song-teaser-in{display:flex;align-items:center;gap:clamp(20px,4vw,48px)}
+.st-cover{flex:0 0 auto;width:clamp(120px,18vw,180px);transform:rotate(-4deg);transition:transform .3s var(--bounce)}
+.st-cover:hover{transform:rotate(0) scale(1.04)}
+.st-cover img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:var(--shadow)}
+.song-teaser h2{margin:0 0 .25em}
+.song-teaser p:not(.kicker){margin:0 0 18px;max-width:52ch}
+@media (max-width:560px){.song-teaser-in{flex-direction:column;align-items:flex-start}}

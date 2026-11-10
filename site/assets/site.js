@@ -306,3 +306,17 @@
     p.querySelector('.bar').addEventListener('click',function(e){ var r=e.currentTarget.getBoundingClientRect(); if(a.duration)a.currentTime=(e.clientX-r.left)/r.width*a.duration; });
   });
 })();
+
+// Songs page: tap a book cover to show its story; only one song plays at a time
+(function(){
+  document.querySelectorAll('.fb-btn').forEach(function(b){
+    var more=document.getElementById(b.getAttribute('aria-controls')), hint=b.querySelector('[data-fb-hint]');
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')!=='true';
+      b.setAttribute('aria-expanded',open?'true':'false'); more.hidden=!open;
+      if(hint) hint.textContent=open?'Tap the cover to close':'Tap the cover for the story';
+    });
+  });
+  var all=document.querySelectorAll('.player audio');
+  all.forEach(function(a){ a.addEventListener('play',function(){ all.forEach(function(o){ if(o!==a&&!o.paused) o.pause(); }); }); });
+})();
