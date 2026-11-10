@@ -20,13 +20,28 @@ def full(name):
 def zoom(name, alt, caption="", sizes="(max-width:540px) 100vw, (max-width:900px) 50vw, 33vw", cls="art"):
     return f'<figure style="margin:0"><button class="zoom {cls}" data-full="{full(name)}" data-caption="{html.escape(caption or alt)}" aria-label="View larger: {html.escape(alt)}">{pic(name, alt, sizes)}</button>{f"<figcaption>{caption}</figcaption>" if caption else ""}</figure>'
 
+# ---------- songs: one list, used by the Songs page and the song links on the book pages ----------
+def frombook(key, title, cover, synopsis, href, linktext, external):
+    """A book thumbnail under a song. Clicking it reveals the story and a link to the book."""
+    tgt = ' target="_blank" rel="noopener"' if external else ''
+    return f'''<div class="frombook">
+        <button type="button" class="fb-btn" aria-expanded="false" aria-controls="fb-{key}">
+          <span class="fb-cover">{cover}</span>
+          <span class="fb-txt"><small>From the book</small><b>{title}</b><em data-fb-hint>Tap the cover for the story</em></span>
+        </button>
+        <div class="fb-more" id="fb-{key}" hidden>
+          <p>{synopsis}</p>
+          <a class="fb-link" href="{href}"{tgt}>{linktext} {EXT if external else ARROW}</a>
+        </div>
+      </div>'''
+
 ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>'
 EXT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>'
 
 import hashlib
 def _fp(p): return hashlib.md5(open(p,'rb').read()).hexdigest()[:8]
 ASSET_V = {'css': _fp('assets/site.css'), 'js': _fp('assets/site.js')}
-NAV = [("index.html","Books"),("splat.html","Splat the Cat"),("russell.html","Russell the Sheep"),("max.html","Max and Moonbean"),("about.html","Meet Rob"),("activities.html","Activities"),("gallery.html","Gallery"),("contact.html","Contact")]
+NAV = [("index.html","Books"),("splat.html","Splat the Cat"),("russell.html","Russell the Sheep"),("max.html","Max and Moonbean"),("songs.html","Songs"),("about.html","Meet Rob"),("activities.html","Activities"),("gallery.html","Gallery"),("contact.html","Contact")]
 SITE_URL = "https://www.robscotton.com"   # change here if the site lives at another address
 SHOW_LICENSING = False   # licensing is hidden for now; set True to bring it back
 
@@ -76,7 +91,7 @@ def shell(file, title, desc, body, theme="#F6B51F", extra_head=""):
         <a class="btn yellow" href="{SPLAT}" target="_blank" rel="noopener">Visit splatthecat.com {EXT}</a>
       </div>
       <div><h4>Books</h4><ul><li><a href="splat.html">Splat the Cat</a></li><li><a href="russell.html">Russell the Sheep</a></li><li><a href="max.html">Max and Moonbean</a></li></ul></div>
-      <div><h4>More</h4><ul><li><a href="about.html">Meet Rob</a></li><li><a href="activities.html">Activities</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">{"Contact &amp; licensing" if SHOW_LICENSING else "Contact"}</a></li></ul></div>
+      <div><h4>More</h4><ul><li><a href="about.html">Meet Rob</a></li><li><a href="songs.html">Songs</a></li><li><a href="activities.html">Activities</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">{"Contact &amp; licensing" if SHOW_LICENSING else "Contact"}</a></li></ul></div>
       <div><h4>Free downloads</h4><ul><li><a href="downloads/splat-colouring-sheet.jpg" download>Splat colouring sheet</a></li><li><a href="downloads/russell-colouring-sheet.jpg" download>Russell colouring sheet</a></li><li><a href="activities.html#max-act">Max and Moonbean printables</a></li></ul></div>
     </div>
     <div class="fine"><span>© Rob Scotton. Splat the Cat, Russell the Sheep and Max and Moonbean are © Rob Scotton. Published by HarperCollins.</span><span>robscotton.com</span></div>
@@ -240,6 +255,61 @@ def buy_section(heading, intro, cards, regions=False):
 </section>
 '''
 
+# ================= SONG DATA =================
+SONGS = [
+  dict(id="his-tail-wiggled-on", title="His Tail Wiggled On", cover="his-tail-cover",
+       alt="His Tail Wiggled On: Splat on a penny-farthing with Seymour", by="Rob Scotton's Splat the Cat",
+       src="audio/his-tail-wiggled-on.mp3", kicker="Splat the Cat",
+       lede="Splat’s first day at Cat School, with Seymour hiding in his lunchbox. Splat rides, wobbles and wiggles his way through a song of his own. Press play and let his tail do the rest.",
+       book=dict(key="splat", title="Splat the Cat", img='<img src="img/book-splat-the-cat-300.webp" alt="Splat the Cat book cover" width="300" height="300" loading="lazy">',
+                 s="Nervous about starting school and making friends, Splat hides his mouse companion Seymour in his lunchbox. Lessons begin well, but Seymour’s escape causes excitement among the other cats. With help from Mrs. Wimpydimple, Splat discovers that school can be welcoming, and that an unexpected friend has something valuable to offer.",
+                 href=f"{SPLAT}/books.html#book=splat-the-cat", link="See it in the Splat books catalogue", ext=True)),
+  dict(id="whats-a-sheep-to-do", title="What’s a Sheep to Do?", cover="sheep-song-cover",
+       alt="What’s a Sheep To Do?: Russell the Sheep in a striped nightcap, asleep on a branch with the owls and Frankie the frog", by="Rob Scotton's Russell the Sheep",
+       src="audio/whats-a-sheep-to-do.mp3", kicker="Russell the Sheep",
+       lede="Russell the Sheep can’t get to sleep in Frogsbottom Field. He tries a rusty old car, a tree full of owls and a sky full of stars, until he finds the one sheep he forgot to count.",
+       book=dict(key="russell", title="Russell the Sheep", img='<img src="img/cover-russell-sheep-480.webp" alt="Russell the Sheep book cover" width="480" height="487" loading="lazy">',
+                 s="Night falls on Frogsbottom Field and every sheep is fast asleep, except Russell. He tries everything: a new hat, a bed up a tree, counting his feet, counting the stars. There’s only one thing left to try. Counting sheep!",
+                 href="russell.html#russell-the-sheep", link="See it on the Russell the Sheep page", ext=False)),
+]
+
+def song_band(i, s):
+    b = s["book"]
+    rev = i % 2 == 1
+    return f'''
+<section class="band{' snow-band' if rev else ''} song-band" id="{s["id"]}" aria-labelledby="{s["id"]}-h">
+  <div class="wrap split{' rev' if rev else ''}">
+    <figure class="art {'tilt-r' if rev else 'tilt-l'}" style="margin:0">{pic(s["cover"], s["alt"], "(max-width:860px) 100vw, 50vw")}</figure>
+    <div>
+      <p class="kicker"{' style="color:var(--teal-2)"' if rev else ''}>{s["kicker"]}</p>
+      <h2 id="{s["id"]}-h">{s["title"]}</h2>
+      <p class="lede">{s["lede"]}</p>
+      <div class="player">
+        <button type="button" aria-label="Play"></button>
+        <div class="meta"><b>{s["title"]}</b><span>{s["by"]}</span><div class="bar"><i></i></div></div>
+        <span class="time">0:00</span>
+        <audio preload="metadata" src="{s["src"]}"></audio>
+      </div>
+      {frombook(b["key"], b["title"], b["img"], b["s"], b["href"], b["link"], b["ext"])}
+    </div>
+  </div>
+</section>'''
+
+def song_link(s, kicker, heading, text, btn_cls, band_cls=""):
+    """The short band on a book page that points to the Songs page."""
+    return f'''<section class="band tight {band_cls} song-teaser" aria-labelledby="{s["id"]}-t">
+  <div class="wrap song-teaser-in">
+    <a class="st-cover" href="songs.html#{s["id"]}" tabindex="-1" aria-hidden="true">{pic(s["cover"], "", "180px")}</a>
+    <div>
+      <p class="kicker"{' style="color:var(--teal-2)"' if 'snow' in band_cls else ''}>{kicker}</p>
+      <h2 id="{s["id"]}-t">{heading}</h2>
+      <p>{text}</p>
+      <a class="btn {btn_cls}" href="songs.html#{s["id"]}">Listen on the Songs page {ARROW}</a>
+    </div>
+  </div>
+</section>'''
+
+
 # ================= SPLAT =================
 splat = f'''
 <header class="hdr hdr-splat">
@@ -254,39 +324,7 @@ splat = f'''
   {pic("splat-cutout","Splat the Cat, arms flung wide","(max-width:760px) 190px, 30vw","peek",lazy=False)}
 </header>
 
-<section class="band" aria-labelledby="song-h">
-  <div class="wrap split">
-    <figure class="art tilt-l" style="margin:0">{pic("his-tail-cover","His Tail Wiggled On: Splat on a penny-farthing with Seymour","(max-width:860px) 100vw, 50vw")}</figure>
-    <div>
-      <p class="kicker">Listen</p>
-      <h2 id="song-h">His Tail Wiggled On</h2>
-      <p class="lede">Splat rides, wobbles and wiggles his way through a song of his own. Press play and let his tail do the rest.</p>
-      <div class="player">
-        <button type="button" aria-label="Play"></button>
-        <div class="meta"><b>His Tail Wiggled On</b><span>Rob Scotton's Splat the Cat</span><div class="bar"><i></i></div></div>
-        <span class="time">0:00</span>
-        <audio preload="metadata" src="audio/his-tail-wiggled-on.mp3"></audio>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="band snow-band" aria-labelledby="sheep-song-h">
-  <div class="wrap split rev">
-    <figure class="art tilt-r" style="margin:0">{pic("sheep-song-cover","What’s a Sheep To Do?: Russell the Sheep in a striped nightcap, asleep on a branch with the owls and Frankie the frog","(max-width:860px) 100vw, 50vw")}</figure>
-    <div>
-      <p class="kicker" style="color:var(--teal-2)">Listen</p>
-      <h2 id="sheep-song-h">What’s a Sheep to Do?</h2>
-      <p class="lede">Russell the Sheep can’t get to sleep in Frogsbottom Field. He tries a rusty old car, a tree full of owls and a sky full of stars, until he finds the one sheep he forgot to count.</p>
-      <div class="player">
-        <button type="button" aria-label="Play"></button>
-        <div class="meta"><b>What’s a Sheep to Do?</b><span>Rob Scotton's Russell the Sheep</span><div class="bar"><i></i></div></div>
-        <span class="time">0:00</span>
-        <audio preload="metadata" src="audio/whats-a-sheep-to-do.mp3"></audio>
-      </div>
-    </div>
-  </div>
-</section>
+{song_link(SONGS[0], "Listen", "Splat has a song", "His Tail Wiggled On, from the very first Splat the Cat book: Splat’s first day at Cat School, with Seymour hiding in his lunchbox.", "red")}
 
 <section class="band red-band on-dark" aria-labelledby="books-h" style="padding-bottom:0">
   <div class="wrap">
@@ -392,6 +430,8 @@ russell = f'''
     {zoom("russell-sleeps","Russell asleep under a patchwork quilt","Russell sleeps, at last!")}
   </div></div>
 </section>
+
+{song_link(SONGS[1], "Russell Tunes", "What’s a Sheep to Do?", "Russell’s sleepless night in Frogsbottom Field, now a song. Counting stars, counting sheep, and finding the one he forgot.", "teal", "snow-band")}
 
 <section class="hdr drawer drw-treasure" id="lost-treasure" aria-labelledby="treasure-h">
   <div class="bg">{pic("hdr-russell-treasure","","100vw")}</div>
@@ -906,6 +946,34 @@ contact = f'''
 </section>
 '''
 pages['contact.html'] = shell('contact.html', "Contact | Rob Scotton", "Contact Rob Scotton for school visits, events and press enquiries about Splat the Cat, Russell the Sheep and Max and Moonbean.", contact, "#1FA7A3")
+
+
+# ================= SONGS =================
+songs = f'''
+<section class="phero songs-hero">
+  <div class="wrap">
+    <div>
+      <p class="kicker">Listen</p>
+      <h1>Songs</h1>
+      <p class="lede">Two of Rob’s picture books, set to music. Press play, then tap a book cover to find out where each song began.</p>
+      <div class="hero-actions"><a class="btn" href="#his-tail-wiggled-on">His Tail Wiggled On {ARROW}</a><a class="btn teal" href="#whats-a-sheep-to-do">What’s a Sheep to Do? {ARROW}</a></div>
+    </div>
+    <div class="stage songs-stage" aria-hidden="true">
+      {pic("his-tail-cover", "", "(max-width:860px) 50vw, 24vw", cls="s1")}
+      {pic("sheep-song-cover", "", "(max-width:860px) 50vw, 24vw", cls="s2")}
+    </div>
+  </div>
+</section>
+{"".join(song_band(i, s) for i, s in enumerate(SONGS))}
+
+<section class="band red-band on-dark tight" aria-label="Lyrics on splatthecat.com">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;align-items:center;gap:22px;justify-content:space-between">
+    <div><h3 style="margin:0">Want to sing along?</h3><p style="margin:0">The words to both songs are on Splat Tunes, at splatthecat.com.</p></div>
+    <a class="btn yellow big" href="{SPLAT}/music.html#songs" target="_blank" rel="noopener">Splat Tunes {EXT}</a>
+  </div>
+</section>
+'''
+pages['songs.html'] = shell('songs.html', "Songs | Rob Scotton", "Songs from Rob Scotton's picture books: His Tail Wiggled On, from Splat the Cat, and What's a Sheep to Do?, from Russell the Sheep.", songs, "#1FA7A3")
 
 # ================= 404 =================
 nf = f"""
