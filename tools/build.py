@@ -271,6 +271,23 @@ splat = f'''
   </div>
 </section>
 
+<section class="band snow-band" aria-labelledby="sheep-song-h">
+  <div class="wrap split rev">
+    <figure class="art tilt-r" style="margin:0">{pic("sheep-song-cover","What’s a Sheep To Do?: Russell the Sheep in a striped nightcap, asleep on a branch with the owls and Frankie the frog","(max-width:860px) 100vw, 50vw")}</figure>
+    <div>
+      <p class="kicker" style="color:var(--teal-2)">Listen</p>
+      <h2 id="sheep-song-h">What’s a Sheep to Do?</h2>
+      <p class="lede">Russell the Sheep can’t get to sleep in Frogsbottom Field. He tries a rusty old car, a tree full of owls and a sky full of stars, until he finds the one sheep he forgot to count.</p>
+      <div class="player">
+        <button type="button" aria-label="Play"></button>
+        <div class="meta"><b>What’s a Sheep to Do?</b><span>Rob Scotton's Russell the Sheep</span><div class="bar"><i></i></div></div>
+        <span class="time">0:00</span>
+        <audio preload="metadata" src="audio/whats-a-sheep-to-do.mp3"></audio>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="band red-band on-dark" aria-labelledby="books-h" style="padding-bottom:0">
   <div class="wrap">
     <div class="split">

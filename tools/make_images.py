@@ -66,6 +66,7 @@ RUSSELL_NEW = {
     'russell-swing': 'RUSSELL on swing.jpg',
     'russell-sleeps': 'RUSSELL sleeps.jpg',
     'russell-what-to-do': "what's a sheep to do?.jpg",
+    'sheep-song-cover': "What's a Sheep To Do? final.png",  # song cover, November 2026
     # Russell and the Lost Treasure
     'russell-lt-reflecting': ' RUSSELL reflecting.jpg',
     'russell-lt-plan': 'RUSSELL 2 PAGE 9.jpg',
