@@ -741,6 +741,12 @@ RS_SHEETS = [
   ("rs-crossword","russell-the-sheep-crossword.pdf","Crossword","Fill in the puzzle with clues from the story. Stuck? The answers are hiding in the Clue Box.","1 page"),
   ("rs-word-search","russell-the-sheep-word-search.pdf","Word search","Find ten words from the story, from SHEEP to STARS, hidden across and down.","1 page"),
 ]
+RT_SHEETS = [
+  ("rt-word-scramble","russell-lost-treasure-word-scramble.pdf","Word scramble","Eight words from the treasure hunt have got all jumbled up. Help Russell unscramble them.","1 page"),
+  ("rt-missing-words","russell-lost-treasure-missing-words.pdf","Missing words","A word has gone missing from eight lines of the story. Unscramble the letters in each tag to find it.","1 page"),
+  ("rt-crossword","russell-lost-treasure-crossword.pdf","Crossword","Fill in the puzzle with clues from the story. Stuck? The answers are hiding in the Clue Box.","1 page"),
+  ("rt-word-search","russell-lost-treasure-word-search.pdf","Word search","Find ten words from the story, from MAP to TREASURE, hidden across and down.","1 page"),
+]
 RUSSELL_SHEETS = [
   ("rx-word-scramble","russell-christmas-magic-word-scramble.pdf","Word scramble","Eight Christmas words from Frogsbottom Field have got all jumbled up. Help Russell unscramble them.","1 page"),
   ("rx-missing-words","russell-christmas-magic-missing-words.pdf","Missing words","A word has gone missing from eight lines of the story. Unscramble the letters in each tag to find it.","1 page"),
@@ -781,6 +787,10 @@ activities = f"""
     <h3 class="act-sub">Russell the Sheep word puzzles</h3>
     <p>Four activity sheets made from the story. Each one is a single PDF, ready to print, with the answers on the edge of the page.</p>
     <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RS_SHEETS)}</div>
+
+    <h3 class="act-sub">Russell and the Lost Treasure word puzzles</h3>
+    <p>Four more sheets for Russell’s treasure hunt, made from the story in the same way.</p>
+    <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RT_SHEETS)}</div>
 
     <h3 class="act-sub">Russell’s Christmas Magic word puzzles</h3>
     <p>Four more sheets for Christmas, made from the story in the same way.</p>
