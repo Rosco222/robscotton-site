@@ -735,9 +735,15 @@ MAX_SHEETS = [
   ("code","max-bubble-speak-code.pdf","Bubble-speak secret code","Moonbean talks in bubbles. Use the key to read his message, then write one of your own for a friend.","1 page"),
   ("show","max-show-and-tell.pdf","My show-and-tell","Max found Moonbean. Draw what you would bring, then write about it.","1 page"),
 ]
-def sheet_card(key, pdf, title, desc, pages):
+RUSSELL_SHEETS = [
+  ("rx-word-scramble","russell-christmas-magic-word-scramble.pdf","Word scramble","Eight Christmas words from Frogsbottom Field have got all jumbled up. Help Russell unscramble them.","1 page"),
+  ("rx-missing-words","russell-christmas-magic-missing-words.pdf","Missing words","A word has gone missing from eight lines of the story. Unscramble the letters in each tag to find it.","1 page"),
+  ("rx-crossword","russell-christmas-magic-crossword.pdf","Crossword","Fill in the puzzle with clues from the story. Stuck? The answers are hiding in the Clue Box.","1 page"),
+  ("rx-word-search","russell-christmas-magic-word-search.pdf","Word search","Find ten words from the story, from SANTA to REINDEER, hidden across and down.","1 page"),
+]
+def sheet_card(key, pdf, title, desc, pages, btn="moon"):
     path = os.path.join('downloads', pdf)
-    return f'<article class="sheet"><a class="sheet-pic" href="downloads/{pdf}" download aria-hidden="true" tabindex="-1">{pic("act-"+key, title + " activity sheet preview", "(max-width:560px) 60vw, 240px")}</a><div><h3>{title}</h3><p>{desc}</p><p class="sheet-meta">PDF, US Letter, {pages}, {kb(path)}</p><a class="btn moon small" href="downloads/{pdf}" download>Download {title}</a></div></article>'
+    return f'<article class="sheet"><a class="sheet-pic" href="downloads/{pdf}" download aria-hidden="true" tabindex="-1">{pic("act-"+key, title + " activity sheet preview", "(max-width:560px) 60vw, 240px")}</a><div><h3>{title}</h3><p>{desc}</p><p class="sheet-meta">PDF, US Letter, {pages}, {kb(path)}</p><a class="btn {btn} small" href="downloads/{pdf}" download>Download {title}</a></div></article>'
 
 activities = f"""
 <section class="phero act-hero">
@@ -759,12 +765,16 @@ activities = f"""
   <div class="wrap">
     <p class="kicker" style="color:var(--teal-2)">Russell the Sheep</p>
     <h2 id="ra-h">Count, colour and craft with Russell</h2>
-    <p class="lede">Start with Rob’s own colouring sheet, then try ideas from teachers and educators who have used Russell in their classrooms.</p>
+    <p class="lede">Start with Rob’s own colouring sheet and word puzzles, then try ideas from teachers and educators who have used Russell in their classrooms.</p>
 
     <h3 class="act-sub">From Rob’s studio</h3>
     <div class="dl">
       <a href="downloads/russell-colouring-sheet.jpg" download><img src="img/russell-colouring-300.webp" alt="" width="300" height="189" loading="lazy"><div><b>Russell’s Christmas Magic colouring sheet</b><span>Free to print and colour. Download</span></div></a>
     </div>
+
+    <h3 class="act-sub">Russell’s Christmas Magic word puzzles</h3>
+    <p>Four new activity sheets made from the story. Each one is a single PDF, ready to print, with the answers on the edge of the page.</p>
+    <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RUSSELL_SHEETS)}</div>
 
     <h3 class="act-sub">From teachers and educators</h3>
     <div class="res-grid">{"".join(res_card(*r) for r in RUSSELL_RES)}</div>
