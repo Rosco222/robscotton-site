@@ -735,6 +735,12 @@ MAX_SHEETS = [
   ("code","max-bubble-speak-code.pdf","Bubble-speak secret code","Moonbean talks in bubbles. Use the key to read his message, then write one of your own for a friend.","1 page"),
   ("show","max-show-and-tell.pdf","My show-and-tell","Max found Moonbean. Draw what you would bring, then write about it.","1 page"),
 ]
+RS_SHEETS = [
+  ("rs-word-scramble","russell-the-sheep-word-scramble.pdf","Word scramble","Eight sleepy words from Frogsbottom Field have got all jumbled up. Help Russell unscramble them.","1 page"),
+  ("rs-missing-words","russell-the-sheep-missing-words.pdf","Missing words","A word has gone missing from eight lines of the story. Unscramble the letters in each tag to find it.","1 page"),
+  ("rs-crossword","russell-the-sheep-crossword.pdf","Crossword","Fill in the puzzle with clues from the story. Stuck? The answers are hiding in the Clue Box.","1 page"),
+  ("rs-word-search","russell-the-sheep-word-search.pdf","Word search","Find ten words from the story, from SHEEP to STARS, hidden across and down.","1 page"),
+]
 RUSSELL_SHEETS = [
   ("rx-word-scramble","russell-christmas-magic-word-scramble.pdf","Word scramble","Eight Christmas words from Frogsbottom Field have got all jumbled up. Help Russell unscramble them.","1 page"),
   ("rx-missing-words","russell-christmas-magic-missing-words.pdf","Missing words","A word has gone missing from eight lines of the story. Unscramble the letters in each tag to find it.","1 page"),
@@ -772,8 +778,12 @@ activities = f"""
       <a href="downloads/russell-colouring-sheet.jpg" download><img src="img/russell-colouring-300.webp" alt="" width="300" height="189" loading="lazy"><div><b>Russell’s Christmas Magic colouring sheet</b><span>Free to print and colour. Download</span></div></a>
     </div>
 
+    <h3 class="act-sub">Russell the Sheep word puzzles</h3>
+    <p>Four activity sheets made from the story. Each one is a single PDF, ready to print, with the answers on the edge of the page.</p>
+    <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RS_SHEETS)}</div>
+
     <h3 class="act-sub">Russell’s Christmas Magic word puzzles</h3>
-    <p>Four new activity sheets made from the story. Each one is a single PDF, ready to print, with the answers on the edge of the page.</p>
+    <p>Four more sheets for Christmas, made from the story in the same way.</p>
     <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RUSSELL_SHEETS)}</div>
 
     <h3 class="act-sub">From teachers and educators</h3>
