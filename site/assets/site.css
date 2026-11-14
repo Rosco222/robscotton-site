@@ -446,6 +446,8 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
 .talk h3{font-size:clamp(1.4rem,2.4vw,1.9rem);margin:0 0 4px}
 .talk ul{margin:14px 0 0;padding-left:1.2em;display:grid;gap:10px;max-width:70ch}
 .talk li{color:rgba(255,255,255,.9)}
+.snow-band .sheet{background:#fff;border-color:rgba(0,0,0,.06);box-shadow:var(--shadow)}
+.snow-band .sheet .sheet-meta{font-size:.85rem;color:var(--ink-2)}
 @media (max-width:520px){.sheet{grid-template-columns:96px 1fr;gap:14px;padding:14px}}
 /* timeline (Meet Rob) */
 .timeline{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:18px;counter-reset:none}
