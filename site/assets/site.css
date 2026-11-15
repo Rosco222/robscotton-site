@@ -424,6 +424,7 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
 .act-fan img:nth-child(3){left:54%;top:14%;transform:rotate(10deg)}
 @media (max-width:860px){.phero .act-fan{min-height:clamp(220px,62vw,300px);margin-top:10px}.phero .act-fan img{width:clamp(120px,34vw,170px)}.act-fan img:nth-child(1){left:2%}.act-fan img:nth-child(2){left:30%}.act-fan img:nth-child(3){left:56%}}
 .act-sub{font-size:clamp(1.3rem,2vw,1.6rem);margin:34px 0 14px;color:#20304A}
+.on-dark .act-sub{color:#fff}
 .res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:clamp(14px,2vw,22px)}
 .res{background:#fff;border-radius:var(--r);padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
 .res h3{font-size:1.3rem;margin:0}
