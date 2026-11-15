@@ -416,7 +416,18 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
 .buy-cover img[src*="max-cover"]{object-position:78% 50%}
 
 /* ---------- activities ---------- */
-.act-hero{background:linear-gradient(135deg,#EAF3FB 0%,#FFFDF7 55%,#FFF3D2 100%)}
+.act-hero{background:var(--teal-2);padding-bottom:clamp(32px,5vw,64px)}
+.cover-pills .cover-pill{background:#fff;color:var(--ink);padding:6px 20px 6px 7px;gap:12px;border-radius:16px;font-size:1rem}
+.cover-pill img{width:44px;height:44px;object-fit:cover;border-radius:10px;flex:none;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.cover-pill img.cp-max{object-position:right}
+.story-hero{padding-bottom:clamp(40px,6vw,80px)}
+.story-hero .wrap{grid-template-columns:1.4fr .6fr}
+.phero .story-stage{min-height:0;gap:18px;align-items:flex-end}
+.phero .story-stage img{width:215px;border-radius:14px;border:6px solid #fff;transform:rotate(-4deg);filter:none;box-shadow:0 24px 40px -18px rgba(0,0,0,.6)}
+.phero .story-stage img.fr{width:110px;border:0;border-radius:0;transform:none;box-shadow:none;filter:drop-shadow(0 18px 16px rgba(0,0,0,.35))}
+@media (max-width:860px){.story-hero .wrap{grid-template-columns:1fr}.phero .story-stage{justify-content:flex-start}.phero .story-stage img{width:150px}.phero .story-stage img.fr{width:80px}}
+.story-hero h1{max-width:16ch}
+.story-hero .lede{max-width:44ch}
 .act-fan{position:relative;min-height:clamp(300px,34vw,440px)}
 .phero .act-fan img{position:absolute;width:clamp(150px,16vw,230px);border-radius:10px;box-shadow:0 24px 40px -18px rgba(11,23,51,.45);filter:none;background:#fff}
 .act-fan img:nth-child(1){left:6%;top:12%;transform:rotate(-9deg)}
@@ -658,7 +669,7 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
 @keyframes fbIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.fb-cover,.fb-more{transition:none;animation:none}}
 .song-band{scroll-margin-top:66px}
-.songs-hero{background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);padding-bottom:clamp(40px,6vw,80px)}
+.songs-hero{padding-bottom:clamp(40px,6vw,80px)}
 .phero .songs-stage{min-height:clamp(220px,32vw,440px);align-items:center}
 .phero .songs-stage img{position:absolute;width:min(54%,300px);border-radius:16px;box-shadow:var(--shadow);filter:none}
 .phero .songs-stage .s1{left:8%;top:6%;transform:rotate(-7deg)}
