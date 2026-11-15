@@ -35,7 +35,7 @@
     if (autoplay) play();
   }
 
-  var seq = [], l0 = $('gp-l0'), l1 = $('gp-l1'), l2 = $('gp-l2'), secEl = $('gp-sec'), threeIn = $('gp-three-in');
+  var seq = [], rollEls = [], secEl = $('gp-sec'), threeIn = $('gp-three-in'), strip = $('gp-strip');
   function renderLines() {
     linesBox.textContent = ''; lineEls = []; seq = []; activeLine = -2;
     timed = song.lines.some(function (l) { return l.t != null; });
@@ -47,8 +47,20 @@
       else { p.textContent = l.x; lineEls.push(p); seq.push({ x: l.x, t: l.t, sec: sec, el: p }); p.dataset.i = seq.length - 1; }
       linesBox.appendChild(p);
     });
+    // the rolling strip: a note to start with, then every line of the song
+    strip.textContent = ''; rollEls = [];
+    [{ x: '\u266A' }].concat(seq).forEach(function (l) { var r = document.createElement('p'); r.textContent = l.x; strip.appendChild(r); rollEls.push(r); });
+    strip.style.transition = 'none'; roll(-1); strip.offsetHeight; strip.style.transition = '';
     estimate();
   }
+  // roll the strip so the line being sung sits in the middle of the window
+  function roll(idx) {
+    var k = idx + 1;
+    rollEls.forEach(function (r, i) { r.className = i === k ? 'now' : i === k - 1 ? 'past' : i === k + 1 ? 'next' : i < k ? 'gone' : ''; });
+    var r = rollEls[k]; if (!r) return;
+    strip.style.transform = 'translateY(' + (threeIn.clientHeight / 2 - r.offsetTop - r.offsetHeight / 2).toFixed(1) + 'px)';
+  }
+  window.addEventListener('resize', function () { roll(activeLine < -1 ? -1 : activeLine); });
   // a song with no line times yet: spread the lines over the song by their length, so the words still keep pace
   function estimate() {
     if (timed || !seq.length) return;
@@ -70,13 +82,9 @@
     var idx = -1;
     for (var i = 0; i < seq.length; i++) { if (seq[i].t != null && seq[i].t <= t + 0.05) idx = i; else break; }
     if (idx === activeLine) return;
-    var step = idx === activeLine + 1;
     activeLine = idx;
-    l0.textContent = idx > 0 ? seq[idx - 1].x : '';
-    l1.textContent = idx >= 0 ? seq[idx].x : '♪';
-    l2.textContent = idx + 1 < seq.length ? seq[idx + 1].x : '';
+    roll(idx);
     secEl.textContent = idx >= 0 && seq[idx].sec ? seq[idx].sec : 'Sing along';
-    if (step && !calm && threeIn.animate) threeIn.animate([{ transform: 'translateY(26px)' }, { transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)' });
     lineEls.forEach(function (p, i) { p.classList.toggle('on', i === idx); });
     if (idx >= 0 && $('gp-dlg-lyrics').open) centre(seq[idx].el, !calm);
   }

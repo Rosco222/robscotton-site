@@ -266,11 +266,7 @@ def page(songs, pic_src, credits):
       <img class="gp-cover" id="gp-cover" src="" alt="" width="480" height="480">
       <div class="gp-three" id="gp-three" aria-live="off">
         <p class="gp-sec" id="gp-sec">Sing along</p>
-        <div class="gp-three-in" id="gp-three-in">
-          <p class="past" id="gp-l0"></p>
-          <p class="now" id="gp-l1"></p>
-          <p class="next" id="gp-l2"></p>
-        </div>
+        <div class="gp-three-in" id="gp-three-in"><div class="gp-strip" id="gp-strip"></div></div>
       </div>
       <div class="gp-pills">
         <button type="button" class="gp-pill" id="gp-open-lyrics">Full lyrics</button>
