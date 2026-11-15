@@ -532,13 +532,21 @@ russell = f'''
 pages['russell.html'] = shell('russell.html', "Russell the Sheep | Rob Scotton", "Rob Scotton's Russell the Sheep books in order: Russell the Sheep, Russell and the Lost Treasure and Russell's Christmas Magic, with page art, the Myer Christmas windows and where to buy.", russell, "#2B3850")
 
 storypage = f'''
-<section class="band paper-band" aria-labelledby="story-h" style="padding-top:clamp(40px,6vw,80px)">
+<section class="phero night-band on-dark story-hero" aria-labelledby="story-h">
   <div class="wrap">
-    <p><a href="russell.html#story" style="font-weight:700">&#8592; Back to Russell the Sheep</a></p>
+    <div>
+      <p class="kicker">So how did it all begin?</p>
+      <h1 id="story-h">Russell’s story, according to Rob</h1>
+      <p class="lede">A bike ride through a field in Rutland, a flock of staring sheep, and a name that leapt out of nowhere.</p>
+      <div class="hero-actions"><a class="btn ghost" href="russell.html#story">&#8592; Back to Russell the Sheep</a></div>
+    </div>
+    <div class="stage story-stage" aria-hidden="true"><img src="img/russell-counting-215.webp" alt="" width="215" height="219"><img src="img/frankie-grin-193.webp" alt="" class="fr"></div>
+  </div>
+</section>
+<section class="band paper-band" aria-label="The story">
+  <div class="wrap">
     <div class="split" style="align-items:start">
       <div>
-        <p class="kicker" style="color:var(--teal-2)">So how did it all begin?</p>
-        <h1 id="story-h" style="font-size:clamp(2.4rem,5vw,4rem)">Russell’s story, according to Rob</h1>
         <div class="prose">{story}</div>
       </div>
       <div style="display:grid;gap:22px;position:sticky;top:90px">
@@ -556,7 +564,7 @@ storypage = f'''
 </section>
 
 '''
-pages['russells-story.html'] = shell('russells-story.html', "Russell's story | Rob Scotton", "How Russell the Sheep came to be, in Rob Scotton's own words: a bike ride through a field in Rutland and a flock of staring sheep.", storypage, "#F2EBDD")
+pages['russells-story.html'] = shell('russells-story.html', "Russell's story | Rob Scotton", "How Russell the Sheep came to be, in Rob Scotton's own words: a bike ride through a field in Rutland and a flock of staring sheep.", storypage, "#0B1733")
 
 # ================= MAX =================
 maxp = f'''
@@ -767,13 +775,13 @@ def book_acc(key, cover, title, count, body):
     return f'<details class="book-acc" id="act-{key}"><summary><img src="img/{cover}" alt="" loading="lazy"><span class="ba-t"><b>{title}</b><small>{count}</small></span><span class="ba-chev" aria-hidden="true"></span></summary><div class="ba-body">{body}\n    </div></details>'
 
 activities = f"""
-<section class="phero act-hero">
+<section class="phero teal-band on-dark act-hero">
   <div class="wrap">
     <div>
       <p class="kicker">Free to print</p>
       <h1>Things to make and do</h1>
       <p class="lede">Colouring, puzzles and classroom ideas for Russell the Sheep and Max and Moonbean. Print them at home or share them with your class.</p>
-      <div class="hero-actions"><a class="btn teal" href="#russell-act">Russell the Sheep</a><a class="btn" href="#max-act" style="background:var(--night)">Max and Moonbean</a><a class="btn ghost" href="https://splatthecat.com/activities.html" target="_blank" rel="noopener">Splat activities {EXT}</a></div>
+      <div class="hero-actions cover-pills"><a class="btn cover-pill" href="#russell-act"><img src="img/cover-russell-sheep-480.webp" alt="" width="40" height="40">Russell the Sheep</a><a class="btn cover-pill" href="#max-act"><img class="cp-max" src="img/max-cover-480.webp" alt="" width="40" height="40">Max and Moonbean</a><a class="btn cover-pill" href="https://splatthecat.com/activities.html" target="_blank" rel="noopener"><img src="img/cover-splat-173.webp" alt="" width="40" height="40">Splat activities {EXT}</a></div>
     </div>
     <div class="stage act-fan" aria-hidden="true">
       {pic("act-maze","","240px")}{pic("act-colouring","","240px")}{pic("act-code","","240px")}
@@ -854,7 +862,7 @@ activities = f"""
   </div>
 </section>
 """
-pages['activities.html'] = shell('activities.html', "Activities | Rob Scotton", "Free activities for Russell the Sheep and Max and Moonbean by Rob Scotton: colouring pages, puzzles, printables and classroom ideas.", activities, "#1FA7A3")
+pages['activities.html'] = shell('activities.html', "Activities | Rob Scotton", "Free activities for Russell the Sheep and Max and Moonbean by Rob Scotton: colouring pages, puzzles, printables and classroom ideas.", activities, "#0F7A77")
 
 # ================= GALLERY =================
 # Three walls of hanging framed pictures, after the gallery on splatthecat.com.
@@ -996,7 +1004,7 @@ pages['contact.html'] = shell('contact.html', "Contact | Rob Scotton", "Contact 
 
 # ================= SONGS =================
 songs = f'''
-<section class="phero songs-hero">
+<section class="phero red-band on-dark songs-hero">
   <div class="wrap">
     <div>
       <p class="kicker">Listen</p>
@@ -1019,7 +1027,7 @@ songs = f'''
   </div>
 </section>
 '''
-pages['songs.html'] = shell('songs.html', "Songs | Rob Scotton", "Songs from Rob Scotton's picture books: His Tail Wiggled On, from Splat the Cat, and What's a Sheep to Do?, from Russell the Sheep.", songs, "#1FA7A3")
+pages['songs.html'] = shell('songs.html', "Songs | Rob Scotton", "Songs from Rob Scotton's picture books: His Tail Wiggled On, from Splat the Cat, and What's a Sheep to Do?, from Russell the Sheep.", songs, "#E3262E")
 
 # ================= 404 =================
 nf = f"""
