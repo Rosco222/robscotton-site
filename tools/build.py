@@ -763,6 +763,9 @@ def sheet_card(key, pdf, title, desc, pages, btn="moon"):
     path = os.path.join('downloads', pdf)
     return f'<article class="sheet"><a class="sheet-pic" href="downloads/{pdf}" download aria-hidden="true" tabindex="-1">{pic("act-"+key, title + " activity sheet preview", "(max-width:560px) 60vw, 240px")}</a><div><h3>{title}</h3><p>{desc}</p><p class="sheet-meta">PDF, US Letter, {pages}, {kb(path)}</p><a class="btn {btn} small" href="downloads/{pdf}" download>Download {title}</a></div></article>'
 
+def book_acc(key, cover, title, count, body):
+    return f'<details class="book-acc" id="act-{key}"><summary><img src="img/{cover}" alt="" loading="lazy"><span class="ba-t"><b>{title}</b><small>{count}</small></span><span class="ba-chev" aria-hidden="true"></span></summary><div class="ba-body">{body}\n    </div></details>'
+
 activities = f"""
 <section class="phero act-hero">
   <div class="wrap">
@@ -783,27 +786,30 @@ activities = f"""
   <div class="wrap">
     <p class="kicker" style="color:var(--teal-2)">Russell the Sheep</p>
     <h2 id="ra-h">Count, colour and craft with Russell</h2>
-    <p class="lede">Start with Rob’s own colouring sheet and word puzzles, then try ideas from teachers and educators who have used Russell in their classrooms.</p>
+    <p class="lede">Rob’s own colouring sheet and word puzzles, plus ideas from teachers and educators who have used Russell in their classrooms. Tap a book to see its activities.</p>
 
-    <h3 class="act-sub">From Rob’s studio</h3>
-    <div class="dl">
-      <a href="downloads/russell-colouring-sheet.jpg" download><img src="img/russell-colouring-300.webp" alt="" width="300" height="189" loading="lazy"><div><b>Russell’s Christmas Magic colouring sheet</b><span>Free to print and colour. Download</span></div></a>
-    </div>
+    {book_acc("rs", "cover-russell-sheep-480.webp", "Russell the Sheep", "8 activities", f"""
+      <h3 class="act-sub">Word puzzles from Rob’s studio</h3>
+      <p>Four activity sheets made from the story. Each one is a single PDF, ready to print, with the answers on the edge of the page.</p>
+      <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RS_SHEETS)}</div>
+      <h3 class="act-sub">From teachers and educators</h3>
+      <div class="res-grid">{"".join(res_card(*r) for r in RUSSELL_RES[:4])}</div>""")}
 
-    <h3 class="act-sub">Russell the Sheep word puzzles</h3>
-    <p>Four activity sheets made from the story. Each one is a single PDF, ready to print, with the answers on the edge of the page.</p>
-    <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RS_SHEETS)}</div>
+    {book_acc("rt", "cover-russell-treasure-480.webp", "Russell and the Lost Treasure", "5 activities", f"""
+      <h3 class="act-sub">Word puzzles from Rob’s studio</h3>
+      <p>Four sheets for Russell’s treasure hunt, made from the story, with the answers on the edge of the page.</p>
+      <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RT_SHEETS)}</div>
+      <h3 class="act-sub">From teachers and educators</h3>
+      <div class="res-grid">{"".join(res_card(*r) for r in RUSSELL_RES[4:])}</div>""")}
 
-    <h3 class="act-sub">Russell and the Lost Treasure word puzzles</h3>
-    <p>Four more sheets for Russell’s treasure hunt, made from the story in the same way.</p>
-    <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RT_SHEETS)}</div>
-
-    <h3 class="act-sub">Russell’s Christmas Magic word puzzles</h3>
-    <p>Four more sheets for Christmas, made from the story in the same way.</p>
-    <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RUSSELL_SHEETS)}</div>
-
-    <h3 class="act-sub">From teachers and educators</h3>
-    <div class="res-grid">{"".join(res_card(*r) for r in RUSSELL_RES)}</div>
+    {book_acc("rx", "cover-russell-xmas-312.webp", "Russell’s Christmas Magic", "5 activities", f"""
+      <h3 class="act-sub">Colouring sheet from Rob’s studio</h3>
+      <div class="dl">
+        <a href="downloads/russell-colouring-sheet.jpg" download><img src="img/russell-colouring-300.webp" alt="" width="300" height="189" loading="lazy"><div><b>Russell’s Christmas Magic colouring sheet</b><span>Free to print and colour. Download</span></div></a>
+      </div>
+      <h3 class="act-sub">Word puzzles</h3>
+      <p>Four sheets for Christmas, made from the story, with the answers on the edge of the page.</p>
+      <div class="sheet-grid">{"".join(sheet_card(*s, btn="teal") for s in RUSSELL_SHEETS)}</div>""")}
   </div>
 </section>
 
@@ -812,13 +818,13 @@ activities = f"""
   <div class="wrap">
     <p class="kicker">Max and Moonbean</p>
     <h2 id="ma-h">Printables for little astronauts</h2>
-    <p class="lede">Brand-new activities made for this site from Rob’s own sketches and paintings. Each one is a single PDF, ready to print.</p>
-    <div class="sheet-grid">{"".join(sheet_card(*s) for s in MAX_SHEETS)}</div>
+    <p class="lede">Brand-new activities made for this site from Rob’s own sketches and paintings. Each one is a single PDF, ready to print. Tap the book to see them.</p>
 
-    <h3 class="act-sub">Word puzzles</h3>
-    <p>A word scramble, missing words, a crossword and a word search, all made from the story, with the answers on the edge of the page.</p>
-    <div class="sheet-grid">{"".join(sheet_card(*s) for s in MM_SHEETS)}</div>
-
+    {book_acc("mm", "max-cover-480.webp", "Max and Moonbean", "8 printables and story questions", f"""
+      <div class="sheet-grid">{"".join(sheet_card(*s) for s in MAX_SHEETS)}</div>
+      <h3 class="act-sub">Word puzzles</h3>
+      <p>A word scramble, missing words, a crossword and a word search, all made from the story, with the answers on the edge of the page.</p>
+      <div class="sheet-grid">{"".join(sheet_card(*s) for s in MM_SHEETS)}</div>
     <div class="talk">
       <h3>Talking about the story</h3>
       <p>Questions for reading together at home or in class.</p>
@@ -829,7 +835,7 @@ activities = f"""
         <li>If a shooting star landed in your room tonight, what would you hope to find?</li>
         <li>Moonbean speaks in bubble-speak. Could you and a friend invent a secret language of your own?</li>
       </ul>
-    </div>
+    </div>""")}
   </div>
 </section>
 
