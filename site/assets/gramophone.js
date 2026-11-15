@@ -11,7 +11,7 @@
     spring: $('g-spring'), frankie: $('gp-frankie'), bulbs: [$('bulb-1'), $('bulb-2'), $('bulb-3')] };
   var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var song = null, songIdx = 0, lineEls = [], timed = false, activeLine = -1;
-  var dragging = false, userScrollUntil = 0;
+  var dragging = false;
 
   function fmt(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
 
@@ -23,7 +23,7 @@
     var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = song.theme === 'night' ? '#0B1733' : '#F6B51F';
     $('gp-kicker').textContent = song.kicker; $('gp-title').textContent = song.title;
     document.title = song.title + ' | Russell’s gramophone | Rob Scotton';
-    $('label-img').setAttribute('href', song.cover);
+    $('label-img').setAttribute('href', song.cover); $('gp-cover').src = song.cover; $('gp-cover').alt = 'Cover art for ' + song.title;
     $('gp-credits').textContent = song.credits;
     Array.prototype.forEach.call(document.querySelectorAll('.sleeve'), function (b) { b.setAttribute('aria-pressed', b.dataset.song === song.id ? 'true' : 'false'); });
     renderLines();
@@ -35,48 +35,63 @@
     if (autoplay) play();
   }
 
+  var seq = [], l0 = $('gp-l0'), l1 = $('gp-l1'), l2 = $('gp-l2'), secEl = $('gp-sec'), threeIn = $('gp-three-in');
   function renderLines() {
-    linesBox.textContent = ''; lineEls = []; activeLine = -1;
+    linesBox.textContent = ''; lineEls = []; seq = []; activeLine = -2;
     timed = song.lines.some(function (l) { return l.t != null; });
     linesBox.classList.toggle('timed', timed);
+    var sec = '';
     song.lines.forEach(function (l) {
       var p = document.createElement('p');
-      if (l.h) { p.className = 'h'; p.textContent = l.h; }
-      else {
-        p.textContent = l.x;
-        if (l.t != null) { p.dataset.t = l.t; lineEls.push(p); }
-      }
+      if (l.h) { p.className = 'h'; p.textContent = l.h; sec = l.h; }
+      else { p.textContent = l.x; lineEls.push(p); seq.push({ x: l.x, t: l.t, sec: sec, el: p }); p.dataset.i = seq.length - 1; }
       linesBox.appendChild(p);
     });
-    linesBox.scrollTop = 0;
+    estimate();
   }
+  // a song with no line times yet: spread the lines over the song by their length, so the words still keep pace
+  function estimate() {
+    if (timed || !seq.length) return;
+    var d = audio.duration; if (!d || !isFinite(d)) return;
+    var lead = Math.min(12, d * 0.05), tail = Math.min(16, d * 0.06), total = 0, acc = 0;
+    var w = seq.map(function (l, i) { var k = 8 + l.x.length + (i && seq[i - 1].sec !== l.sec ? 14 : 0); total += k; return k; });
+    seq.forEach(function (l, i) { l.t = lead + (d - lead - tail) * acc / total; acc += w[i]; });
+    activeLine = -2;
+  }
+  audio.addEventListener('loadedmetadata', estimate);
 
   linesBox.addEventListener('click', function (e) {
-    var p = e.target.closest('p[data-t]'); if (!p) return;
-    audio.currentTime = Math.max(0, parseFloat(p.dataset.t) - 0.15); userScrollUntil = 0; play();
-  });
-  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function (ev) {
-    linesBox.addEventListener(ev, function () { userScrollUntil = performance.now() + 4500; }, { passive: true });
+    var p = e.target.closest('p[data-i]'); if (!p) return;
+    var l = seq[+p.dataset.i]; if (l.t == null) return;
+    audio.currentTime = Math.max(0, l.t - 0.15); play();
   });
 
   function syncLines(t) {
-    if (!timed) return;
     var idx = -1;
-    for (var i = 0; i < lineEls.length; i++) { if (parseFloat(lineEls[i].dataset.t) <= t + 0.05) idx = i; else break; }
+    for (var i = 0; i < seq.length; i++) { if (seq[i].t != null && seq[i].t <= t + 0.05) idx = i; else break; }
     if (idx === activeLine) return;
+    var step = idx === activeLine + 1;
     activeLine = idx;
-    lineEls.forEach(function (p, i) { p.classList.toggle('on', i === idx); p.classList.toggle('done', i < idx); });
+    l0.textContent = idx > 0 ? seq[idx - 1].x : '';
+    l1.textContent = idx >= 0 ? seq[idx].x : '♪';
+    l2.textContent = idx + 1 < seq.length ? seq[idx + 1].x : '';
+    secEl.textContent = idx >= 0 && seq[idx].sec ? seq[idx].sec : 'Sing along';
+    if (step && !calm && threeIn.animate) threeIn.animate([{ transform: 'translateY(26px)' }, { transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    lineEls.forEach(function (p, i) { p.classList.toggle('on', i === idx); });
+    if (idx >= 0 && $('gp-dlg-lyrics').open) centre(seq[idx].el, !calm);
   }
-  function scrollTarget(t) {
-    var max = linesBox.scrollHeight - linesBox.clientHeight;
-    if (timed) {
-      if (activeLine < 0) return 0;
-      var p = lineEls[activeLine];
-      return Math.min(max, Math.max(0, p.offsetTop - linesBox.offsetTop - linesBox.clientHeight / 2 + p.offsetHeight / 2));
-    }
-    var d = audio.duration || 1, lead = Math.min(10, d * 0.05), tail = Math.min(14, d * 0.06);
-    return max * Math.min(1, Math.max(0, (t - lead) / Math.max(1, d - lead - tail)));
+
+  /* ---------- pop-ups: full lyrics and credits ---------- */
+  function centre(p, smooth) {
+    var top = Math.max(0, p.offsetTop - linesBox.offsetTop - linesBox.clientHeight / 2 + p.offsetHeight / 2);
+    if (smooth && linesBox.scrollTo) linesBox.scrollTo({ top: top, behavior: 'smooth' }); else linesBox.scrollTop = top;
   }
+  function openDlg(d) { if (d.showModal) d.showModal(); else d.setAttribute('open', ''); if (d.id === 'gp-dlg-lyrics' && activeLine >= 0) centre(seq[activeLine].el, false); }
+  $('gp-open-lyrics').addEventListener('click', function () { openDlg($('gp-dlg-lyrics')); });
+  $('gp-open-credits').addEventListener('click', function () { openDlg($('gp-dlg-credits')); });
+  Array.prototype.forEach.call(document.querySelectorAll('.gp-dlg'), function (d) {
+    d.addEventListener('click', function (e) { if (e.target === d || e.target.closest('[data-close]')) { if (d.close) d.close(); else d.removeAttribute('open'); } });
+  });
 
   /* ---------- transport ---------- */
   function play() { root.classList.add('started'); var p = audio.play(); if (p && p.catch) p.catch(function () { root.classList.remove('started'); }); }
@@ -101,7 +116,7 @@
     dragging = true; range.style.setProperty('--p', (range.value / 10) + '%');
     if (audio.duration) cur.textContent = fmt(range.value / 1000 * audio.duration);
   });
-  range.addEventListener('change', function () { if (audio.duration) audio.currentTime = range.value / 1000 * audio.duration; dragging = false; userScrollUntil = 0; });
+  range.addEventListener('change', function () { if (audio.duration) audio.currentTime = range.value / 1000 * audio.duration; dragging = false; });
   document.addEventListener('keydown', function (e) {
     if (e.code !== 'Space' || /^(BUTTON|INPUT|A|TEXTAREA|SELECT)$/.test((e.target.tagName || ''))) return;
     e.preventDefault(); toggle();
@@ -201,10 +216,6 @@
     // time, bar and words
     if (d && !dragging) { range.value = Math.round(t / d * 1000); range.style.setProperty('--p', (t / d * 100) + '%'); cur.textContent = fmt(t); }
     syncLines(t);
-    if (now > userScrollUntil && (playing || timed)) {
-      var want = scrollTarget(t), diff = want - linesBox.scrollTop;
-      if (Math.abs(diff) > 0.5) linesBox.scrollTop += calm ? diff : diff * Math.min(1, dt * 5);
-    }
     requestAnimationFrame(frame);
   }
 

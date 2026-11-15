@@ -263,17 +263,33 @@ def page(songs, pic_src, credits):
     </div>
 
     <div class="gp-words">
-      <div class="gp-roll">
-        <h2>Sing along</h2>
-        <div class="gp-lines" id="gp-lines" tabindex="0" aria-label="Song words"></div>
+      <img class="gp-cover" id="gp-cover" src="" alt="" width="480" height="480">
+      <div class="gp-three" id="gp-three" aria-live="off">
+        <p class="gp-sec" id="gp-sec">Sing along</p>
+        <div class="gp-three-in" id="gp-three-in">
+          <p class="past" id="gp-l0"></p>
+          <p class="now" id="gp-l1"></p>
+          <p class="next" id="gp-l2"></p>
+        </div>
       </div>
-      <p class="gp-credits" id="gp-credits"></p>
+      <div class="gp-pills">
+        <button type="button" class="gp-pill" id="gp-open-lyrics">Full lyrics</button>
+        <button type="button" class="gp-pill" id="gp-open-credits">Credits</button>
+      </div>
       <figure class="gp-maker">
         <img src="img/russell-lt-welding-480.webp" alt="Russell the Sheep in welding goggles and his striped nightcap, building a machine at his workbench" width="480" height="480" loading="lazy">
         <figcaption>Built by Russell. No instructions were read.</figcaption>
       </figure>
     </div>
   </div>
+  <dialog class="gp-dlg" id="gp-dlg-lyrics" aria-labelledby="gp-dlg-lt">
+    <div class="gp-dlg-head"><h2 id="gp-dlg-lt">Lyrics</h2><button type="button" class="gp-x" data-close aria-label="Close">&#215;</button></div>
+    <div class="gp-lines" id="gp-lines" tabindex="0"></div>
+  </dialog>
+  <dialog class="gp-dlg small" id="gp-dlg-credits" aria-labelledby="gp-dlg-ct">
+    <div class="gp-dlg-head"><h2 id="gp-dlg-ct">Credits</h2><button type="button" class="gp-x" data-close aria-label="Close">&#215;</button></div>
+    <p class="gp-credits" id="gp-credits"></p>
+  </dialog>
   <audio id="gp-audio" preload="metadata"></audio>
   <script type="application/json" id="gp-data">{json.dumps(data, ensure_ascii=False).replace("</", "<\\/")}</script>
 </section>
