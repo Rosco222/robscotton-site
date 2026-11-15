@@ -273,6 +273,12 @@ dialog.lb .prev{left:14px}dialog.lb .next{right:14px}
 .player .meta span{font-size:.85rem;color:var(--ink-2)}
 .player .bar{height:6px;background:var(--paper-2);border-radius:3px;overflow:hidden;margin-top:6px}
 .player .bar i{display:block;height:100%;width:0;background:var(--red)}
+a.player-link{text-decoration:none;color:inherit;transition:transform .2s var(--bounce)}
+a.player-link:hover{transform:translateY(-2px)}
+a.player-link:hover .pl-btn{transform:scale(1.08)}
+.player .pl-btn{width:58px;height:58px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;flex:0 0 auto;transition:transform .2s var(--bounce)}
+.player-link .meta{display:block}
+.player-link .meta>span{display:block}
 .player .time{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--ink-2);flex:0 0 auto}
 
 /* prose */
