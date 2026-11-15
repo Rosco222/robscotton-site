@@ -82,14 +82,14 @@
 /* words */
 .gp-words{grid-area:words;position:sticky;top:84px;display:grid;gap:14px;justify-items:center}
 .gp-cover{width:min(100%,340px);height:auto;aspect-ratio:1;object-fit:cover;border-radius:18px;transform:rotate(2deg);box-shadow:0 26px 50px -24px rgba(0,0,0,.6)}
-.gp-three{width:100%;background:#0B1733;color:#fff;border-radius:22px;padding:14px 22px 18px;box-shadow:0 24px 50px -24px rgba(0,0,0,.55);overflow:hidden}
-.gp[data-theme="night"] .gp-three{background:#101d42;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 24px 50px -24px rgba(0,0,0,.7)}
-.gp-sec{margin:0 0 6px;font:800 .72rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#FFD34D}
-.gp-three-in{display:grid;gap:6px}
+.gp-three{width:100%;padding:4px 6px 6px;text-align:center}
+.gp-sec{margin:0 0 6px;font:800 .72rem/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--gp-accent)}
+.gp-three-in{display:grid;gap:8px;justify-items:center}
 .gp-three-in p{margin:0;font-family:var(--display);font-weight:700;line-height:1.2;min-height:1.2em;text-wrap:balance}
-.gp-three-in .past{font-size:clamp(.95rem,1.25vw,1.1rem);color:rgba(255,255,255,.28)}
-.gp-three-in .now{font-size:clamp(1.3rem,2vw,1.75rem);color:#fff;min-height:2.4em;display:flex;align-items:center}
-.gp-three-in .next{font-size:clamp(.95rem,1.25vw,1.1rem);color:rgba(255,255,255,.58)}
+.gp-three-in .past{font-size:clamp(1rem,1.35vw,1.2rem);color:var(--gp-ink);opacity:.34}
+.gp-three-in .now{font-size:clamp(1.45rem,2.3vw,2rem);font-weight:800;color:#fff;min-height:2.4em;display:flex;align-items:center;text-shadow:0 2px 0 rgba(110,60,0,.5),0 0 18px rgba(110,60,0,.35)}
+.gp[data-theme="night"] .gp-three-in .now{text-shadow:0 0 22px rgba(255,233,160,.35)}
+.gp-three-in .next{font-size:clamp(1rem,1.35vw,1.2rem);color:var(--gp-ink);opacity:.62}
 .gp-pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .gp-pill{border:0;cursor:pointer;font-family:var(--display);font-weight:800;font-size:1rem;padding:10px 20px;border-radius:999px;background:var(--gp-btn);color:var(--gp-btn-ink);box-shadow:0 8px 18px -8px rgba(0,0,0,.5);transition:transform .2s var(--bounce)}
 .gp-pill:hover{transform:translateY(-2px) scale(1.04)}
