@@ -420,6 +420,8 @@ main img,.lb img,footer img,.top img{-webkit-user-drag:none;user-drag:none;-webk
 .cover-pills .cover-pill{background:#fff;color:var(--ink);padding:6px 20px 6px 7px;gap:12px;border-radius:16px;font-size:1rem}
 .cover-pill img{width:44px;height:44px;object-fit:cover;border-radius:10px;flex:none;box-shadow:0 2px 6px rgba(0,0,0,.18)}
 .cover-pill img.cp-max{object-position:right}
+.cover-pills .cp-gold{background:var(--yellow);color:var(--ink)}
+.cover-pills .cp-blue{background:var(--night-2);color:#fff}
 .story-hero{padding-bottom:clamp(40px,6vw,80px)}
 .story-hero .wrap{grid-template-columns:1.4fr .6fr}
 .phero .story-stage{min-height:0;gap:18px;align-items:flex-end}
