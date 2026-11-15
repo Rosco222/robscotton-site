@@ -48,7 +48,7 @@ SHOW_LICENSING = False   # licensing is hidden for now; set True to bring it bac
 def shell(file, title, desc, body, theme="#F6B51F", extra_head=""):
     short = {"Splat the Cat":"Splat","Russell the Sheep":"Russell","Max and Moonbean":"Max &amp; Moonbean"}
     cur = ' aria-current="page"'
-    nav = "".join(f'<a href="{h}"{cur if h==file or (h=="russell.html" and file=="russells-story.html") else ""}>' + (f'<span class="full">{t}</span><span class="short" aria-hidden="true">{short[t]}</span>' if t in short else t) + '</a>' for h,t in NAV)
+    nav = "".join(f'<a href="{h}"{cur if h==file or (h=="russell.html" and file=="russells-story.html") or (h=="songs.html" and file=="gramophone.html") else ""}>' + (f'<span class="full">{t}</span><span class="short" aria-hidden="true">{short[t]}</span>' if t in short else t) + '</a>' for h,t in NAV)
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -259,14 +259,14 @@ def buy_section(heading, intro, cards, regions=False):
 SONGS = [
   dict(id="his-tail-wiggled-on", title="His Tail Wiggled On", cover="his-tail-cover",
        alt="His Tail Wiggled On: Splat on a penny-farthing with Seymour", by="Rob Scotton's Splat the Cat",
-       src="audio/his-tail-wiggled-on.mp3", kicker="Splat the Cat",
+       src="audio/his-tail-wiggled-on.mp3", kicker="Splat the Cat", len="3:33",
        lede="Splat’s first day at Cat School, with Seymour hiding in his lunchbox. Splat rides, wobbles and wiggles his way through a song of his own. Press play and let his tail do the rest.",
        book=dict(key="splat", title="Splat the Cat", img='<img src="img/book-splat-the-cat-300.webp" alt="Splat the Cat book cover" width="300" height="300" loading="lazy">',
                  s="Nervous about starting school and making friends, Splat hides his mouse companion Seymour in his lunchbox. Lessons begin well, but Seymour’s escape causes excitement among the other cats. With help from Mrs. Wimpydimple, Splat discovers that school can be welcoming, and that an unexpected friend has something valuable to offer.",
                  href=f"{SPLAT}/books.html#book=splat-the-cat", link="See it in the Splat books catalogue", ext=True)),
   dict(id="whats-a-sheep-to-do", title="What’s a Sheep to Do?", cover="sheep-song-cover",
        alt="What’s a Sheep To Do?: Russell the Sheep in a striped nightcap, asleep on a branch with the owls and Frankie the frog", by="Rob Scotton's Russell the Sheep",
-       src="audio/whats-a-sheep-to-do.mp3", kicker="Russell the Sheep",
+       src="audio/whats-a-sheep-to-do.mp3", kicker="Russell the Sheep", len="5:26",
        lede="Russell the Sheep can’t get to sleep in Frogsbottom Field. He tries a rusty old car, a tree full of owls and a sky full of stars, until he finds the one sheep he forgot to count.",
        book=dict(key="russell", title="Russell the Sheep", img='<img src="img/cover-russell-sheep-480.webp" alt="Russell the Sheep book cover" width="480" height="487" loading="lazy">',
                  s="Night falls on Frogsbottom Field and every sheep is fast asleep, except Russell. He tries everything: a new hat, a bed up a tree, counting his feet, counting the stars. There’s only one thing left to try. Counting sheep!",
@@ -284,12 +284,11 @@ def song_band(i, s):
       <p class="kicker"{' style="color:var(--teal-2)"' if rev else ''}>{s["kicker"]}</p>
       <h2 id="{s["id"]}-h">{s["title"]}</h2>
       <p class="lede">{s["lede"]}</p>
-      <div class="player">
-        <button type="button" aria-label="Play"></button>
-        <div class="meta"><b>{s["title"]}</b><span>{s["by"]}</span><div class="bar"><i></i></div></div>
-        <span class="time">0:00</span>
-        <audio preload="metadata" src="{s["src"]}"></audio>
-      </div>
+      <a class="player player-link" href="gramophone.html?song={s["id"]}&amp;play=1" aria-label="Play {s["title"]} on Russell’s gramophone">
+        <span class="pl-btn" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="meta"><b>{s["title"]}</b><span>Play it on Russell’s gramophone, with the words</span></span>
+        <span class="time">{s["len"]}</span>
+      </a>
       {frombook(b["key"], b["title"], b["img"], b["s"], b["href"], b["link"], b["ext"])}
     </div>
   </div>
@@ -1041,6 +1040,16 @@ nf = f"""
 </section>
 """
 pages['404.html'] = shell('404.html', "Page not found | Rob Scotton", "This page could not be found on robscotton.com.", nf, "#F6B51F", '<base href="/"><meta name="robots" content="noindex">')
+
+# ================= GRAMOPHONE (song player) =================
+import gramophone
+GRAM_HORN = int(os.environ.get('GRAM_HORN', 2))  # 2 = the live horn (gooseneck pipe into a side socket); 1 = the first design, kept for reference
+_gv = _fp('assets/gramophone.css') + _fp('assets/gramophone.js')
+pages['gramophone.html'] = shell('gramophone.html', "Russell’s gramophone | Rob Scotton", "Play the songs from Rob Scotton's picture books on Russell the Sheep's home-made gramophone, and sing along with the words.",
+    gramophone.page(SONGS, lambda n: f'img/{n}-480.webp', "Lyrics by Rob Scotton, musical style guidance by Rob Scotton and ChatGPT, music by Suno", horn=GRAM_HORN)
+    + f'<script src="assets/gramophone.js?v={_gv}" defer></script>', "#F6B51F",
+    f'<link rel="stylesheet" href="assets/gramophone.css?v={_gv}">')
+
 
 for f, h in pages.items():
     open(f, 'w').write(h)
