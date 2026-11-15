@@ -1043,9 +1043,10 @@ pages['404.html'] = shell('404.html', "Page not found | Rob Scotton", "This page
 
 # ================= GRAMOPHONE (song player) =================
 import gramophone
+GRAM_HORN = int(os.environ.get('GRAM_HORN', 1))  # 1 = the first horn; 2 = 'Gram 2', the horn with a gooseneck pipe and socket
 _gv = _fp('assets/gramophone.css') + _fp('assets/gramophone.js')
 pages['gramophone.html'] = shell('gramophone.html', "Russell’s gramophone | Rob Scotton", "Play the songs from Rob Scotton's picture books on Russell the Sheep's home-made gramophone, and sing along with the words.",
-    gramophone.page(SONGS, lambda n: f'img/{n}-480.webp', "Lyrics by Rob Scotton, musical style guidance by Rob Scotton and ChatGPT, music by Suno")
+    gramophone.page(SONGS, lambda n: f'img/{n}-480.webp', "Lyrics by Rob Scotton, musical style guidance by Rob Scotton and ChatGPT, music by Suno", horn=GRAM_HORN)
     + f'<script src="assets/gramophone.js?v={_gv}" defer></script>', "#F6B51F",
     f'<link rel="stylesheet" href="assets/gramophone.css?v={_gv}">')
 

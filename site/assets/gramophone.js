@@ -146,11 +146,11 @@
   ];
   var STAR = '<svg viewBox="0 0 24 24"><path d="M12 1l3.2 7 7.6.8-5.7 5.1 1.7 7.5L12 17.500l-6.800 3.900 1.700-7.500L1.200 8.800l7.600-.8z" fill="currentColor"/></svg>';
   var PAL = { day: ['#6A3A94', '#1B1A1F', '#E3262E', '#0F7A77', '#fff'], night: ['#FFD34D', '#8ED0E8', '#fff', '#F7A8C8', '#9FE3DD'] };
-  var live = 0, spawnDebt = 0;
+  var live = 0, spawnDebt = 0, mouth = (el.horn.getAttribute('data-mouth') || '588 206').split(' ').map(Number);
   function spawn(kick) {
     if (calm || live > 46 || !notesBox.animate) return;
     var r = stage.getBoundingClientRect(), k = r.width / 800;
-    var x0 = 588 * k, y0 = (206 - 20) * k;
+    var x0 = mouth[0] * k, y0 = (mouth[1] - 20) * k;
     var n = document.createElement('i'), roll = Math.random();
     var pal = PAL[song.theme] || PAL.day;
     n.style.color = pal[Math.floor(Math.random() * pal.length)];
@@ -178,6 +178,7 @@
 
   /* ---------- the motion ---------- */
   function rot(node, deg, x, y) { node.setAttribute('transform', 'rotate(' + deg.toFixed(2) + (x != null ? ' ' + x + ' ' + y : '') + ')'); }
+  var pivot = el.horn.getAttribute('data-pivot') || '562 436', pivotBack = pivot.split(' ').map(function (v) { return -v; }).join(' ');
   var last = performance.now(), ang = 0, spin = 0, arm = -32, lvl = 0, slow = 0, kickV = 0, rays = 0, crank = 0, cog = 0, clock = 0;
   function frame(now) {
     var dt = Math.min(0.05, (now - last) / 1000); last = now; clock += dt;
@@ -203,7 +204,7 @@
 
     if (!calm) {
       var pulse = 1 + lvl * 0.035 + kickV * 0.035;
-      el.horn.setAttribute('transform', 'translate(562 436) rotate(' + (Math.sin(clock * 5.2) * lvl * 1.4 - kickV * 1.2).toFixed(2) + ') scale(' + pulse.toFixed(4) + ') translate(-562 -436)');
+      el.horn.setAttribute('transform', 'translate(' + pivot + ') rotate(' + (Math.sin(clock * 5.2) * lvl * 1.4 - kickV * 1.2).toFixed(2) + ') scale(' + pulse.toFixed(4) + ') translate(' + pivotBack + ')');
       var bounce = lvl * 3 + kickV * 4;
       el.machine.setAttribute('transform', 'translate(0 ' + (-bounce).toFixed(2) + ')');
       el.spring.setAttribute('transform', 'translate(0 612) scale(1 ' + (1 + bounce / 56).toFixed(3) + ') translate(0 -612)');

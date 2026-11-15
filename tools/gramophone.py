@@ -80,7 +80,7 @@ SVG = '''<svg class="gram" id="gram" viewBox="0 20 800 680" role="img" aria-labe
   <g><rect x="352" y="646" width="78" height="16" rx="3" fill="#1FA7A3"/><rect x="358" y="630" width="70" height="16" rx="3" fill="#E3262E"/><rect x="350" y="614" width="80" height="16" rx="3" fill="#6A3A94"/><rect x="356" y="650" width="26" height="4" fill="#fff8" /><rect x="364" y="634" width="20" height="4" fill="#fff8"/></g>
 
   <!-- the horn -->
-  <g id="g-horn">
+  <g id="g-horn" data-pivot="__PIVOT__" data-mouth="__MOUTH__">
     <path d="M546 436C530 380 440 340 430 258L750 142C740 300 610 370 578 436Z" fill="url(#g-brass2)"/>
     <g clip-path="url(#c-horn)">
       __SEAMS__
@@ -187,7 +187,65 @@ def _bez(p0, p1, p2, p3, t):
     return (u**3 * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t**3 * p3[0],
             u**3 * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t**3 * p3[1])
 
-def stage_svg():
+def _tube(P, r0, r1, n=40):
+    """A tapered pipe along the bezier P: returns (outline path, centre points, normals)."""
+    left, right, mid = [], [], []
+    for i in range(n + 1):
+        t = i / n
+        x, y = _bez(*P, t)
+        x2, y2 = _bez(*P, min(1, t + .01)); x1, y1 = _bez(*P, max(0, t - .01))
+        dx, dy = x2 - x1, y2 - y1; d = math.hypot(dx, dy) or 1
+        nx, ny = -dy / d, dx / d
+        r = r0 + (r1 - r0) * t
+        left.append((x + nx * r, y + ny * r)); right.append((x - nx * r, y - ny * r)); mid.append((x, y, nx, ny, r))
+    pts = left + right[::-1]
+    return 'M' + 'L'.join(f'{x:.1f} {y:.1f}' for x, y in pts) + 'Z', mid
+
+HORN1_BODY_START = '    <path d="M546 436C530 380 440 340 430 258L750 142C740 300 610 370 578 436Z" fill="url(#g-brass2)"/>'
+HORN1_COLLAR = '    <rect x="538" y="424" width="48" height="22" rx="6" fill="#6b4a12"/><rect x="538" y="424" width="48" height="7" rx="3.5" fill="#F3C55A"/>\n'
+
+def horn2_body():
+    """Gram 2: a whole horn. The bell narrows to a throat, then a gooseneck pipe bends down into a bolted socket on the tea chest."""
+    cone = 'M453 218C500 300 600 380 659 404L697 390C712 320 722 220 717 112Z'
+    L = [(453, 218), (500, 300), (600, 380), (659, 404)]; R = [(717, 112), (722, 220), (712, 320), (697, 390)]
+    pipeP = [(678, 397), (702, 456), (668, 484), (606, 484)]
+    outline, mid = _tube(pipeP, 20, 15)
+    hi = 'M' + 'L'.join(f'{x + nx * r * .45:.1f} {y + ny * r * .45:.1f}' for x, y, nx, ny, r in mid[2:-2])
+    ribs = ''
+    for k in (7, 30):
+        x, y, nx, ny, r = mid[k]
+        ribs += f'<path d="M{x + nx * (r + 3):.1f} {y + ny * (r + 3):.1f}L{x - nx * (r + 3):.1f} {y - ny * (r + 3):.1f}" stroke="#7a4f10" stroke-width="7" stroke-linecap="round"/><path d="M{x + nx * (r + 3):.1f} {y + ny * (r + 3):.1f}L{x - nx * (r + 3):.1f} {y - ny * (r + 3):.1f}" stroke="#F3C55A" stroke-width="3" stroke-linecap="round"/>'
+    # a bandage round the bend, where it once came apart
+    x, y, nx, ny, r = mid[19]
+    ang = math.degrees(math.atan2(ny, nx))
+    tape = f'<g transform="translate({x:.1f} {y:.1f}) rotate({ang:.1f})"><rect x="{-r - 3:.1f}" y="-11" width="{2 * r + 6:.1f}" height="22" rx="4" fill="#F4F7FB"/><rect x="{-r - 3:.1f}" y="-4" width="{2 * r + 6:.1f}" height="7" fill="#E3262E"/></g>'
+    pts = []
+    for t in (.15, .38, .62, .85):
+        a, b = _bez(*L, t); pts.append((round(a + 5), round(b - 9)))
+        a, b = _bez(*R, t); pts.append((round(a - 10), round(b + 2)))
+    seams = ''.join(f'<path d="M678 397L{a} {b}" stroke="#5c3b0c" stroke-width="2.5" opacity=".35"/>' for a, b in ((506, 197), (559, 176), (611, 154), (664, 133)))
+    return f'''    <clipPath id="c-horn2"><path d="{cone}"/></clipPath>
+    <!-- the socket: a flanged plate bolted to the side of the chest -->
+    <rect x="598" y="458" width="16" height="54" rx="4" fill="#6b4a12"/><rect x="598" y="458" width="6" height="54" rx="3" fill="#F3C55A"/>
+    <circle cx="606" cy="465" r="3.200" fill="#3a2a1a"/><circle cx="606" cy="505" r="3.200" fill="#3a2a1a"/>
+    <path d="{outline}" fill="url(#g-brass2)" stroke="#7a4f10" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="{hi}" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+    {ribs}{tape}
+    <rect x="610" y="466" width="20" height="38" rx="5" fill="url(#g-brass)" stroke="#7a4f10" stroke-width="2"/>
+    <path d="{cone}" fill="url(#g-brass2)" stroke="#7a4f10" stroke-width="2.5" stroke-linejoin="round"/>
+    <g clip-path="url(#c-horn2)">
+      {seams}
+      <path d="M500 280L722 212L720 268L562 342Z" fill="url(#g-copper)"/>
+      <path d="M604 300l66-22 8 30-64 26z" fill="#3E7E7A"/>
+      <path d="M604 300l66-22 8 30-64 26z" fill="none" stroke="#fff8" stroke-width="2" stroke-dasharray="5 5"/>
+      <path d="M626 368L704 346L704 384L650 404Z" fill="#B9C3CC"/>
+      <path d="M453 218C500 300 600 380 659 404" fill="none" stroke="#5c3b0c" stroke-width="7" opacity=".4"/>
+    </g>
+    <path d="M656 407L700 389" stroke="#7a4f10" stroke-width="9" stroke-linecap="round"/><path d="M656 407L700 389" stroke="#FFE08A" stroke-width="4" stroke-linecap="round"/>
+    {rivets(pts + [(634, 362), (696, 350), (668, 286), (676, 310)])}
+'''
+
+def stage_svg(horn=1):
     L = [(546, 436), (530, 380), (440, 340), (430, 258)]; R = [(578, 436), (610, 370), (740, 300), (750, 142)]
     pts = []
     for t in (.2, .4, .6, .8):
@@ -209,7 +267,16 @@ def stage_svg():
         if i == 8: fill = '#C4553A'
         op = .5 if i in (3, 8) else .1
         petals += f'<path d="M-8 14L{-8 + 260 * math.cos(a0):.0f} {14 + 260 * math.sin(a0):.0f}L{-8 + 260 * math.cos(a1):.0f} {14 + 260 * math.sin(a1):.0f}Z" fill="{fill}" opacity="{op}"/>'
-    return (SVG.replace('__SEAMS__', seams).replace('__SCALLOP__', scallop).replace('__PETALS__', petals).replace('__RAYS__', RAYS).replace('__GROOVES__', GROOVES).replace('__RIVETS__', riv)
+    svg = SVG.replace('__PIVOT__', '606 484' if horn == 2 else '562 436').replace('__MOUTH__', '583 171' if horn == 2 else '588 206')
+    if horn == 2:
+        a = svg.index(HORN1_BODY_START); b = svg.index('    __RIVETS__') + len('    __RIVETS__\n')
+        svg = svg[:a] + horn2_body() + svg[b:]
+        assert HORN1_COLLAR in svg
+        svg = svg.replace(HORN1_COLLAR, '')
+        svg = svg.replace('<g transform="translate(590 200) rotate(-20)">', '<g transform="translate(585 165) rotate(-22) scale(.86)">')
+        svg = svg.replace('<g transform="translate(606 560)">', '<g transform="translate(606 572) scale(.7)">')
+        svg = svg.replace('<g transform="translate(-62 50)"><g class="cap"', '<g transform="translate(-39 10)"><g class="cap"')
+    return (svg.replace('__SEAMS__', seams).replace('__SCALLOP__', scallop).replace('__PETALS__', petals).replace('__RAYS__', RAYS).replace('__GROOVES__', GROOVES).replace('__RIVETS__', riv)
             .replace('__COG_A__', cog(38, 12)).replace('__COG_B__', cog(26, 8, 6, 5)).replace('__COG_C__', cog(20, 6, 6, 4)))
 
 ICON = {
@@ -220,7 +287,7 @@ ICON = {
   'start': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2.5v14H6zM19 5v14l-9.5-7z" fill="currentColor"/></svg>',
 }
 
-def page(songs, pic_src, credits):
+def page(songs, pic_src, credits, horn=1):
     data = [dict(id=s['id'], title=s['title'], by=s['by'], kicker=s['kicker'], src=s['src'],
                  cover=pic_src(s['cover']), theme=('night' if 'sheep' in s['id'] else 'day'),
                  credits=credits, lines=lyrics(s['id']),
@@ -240,7 +307,7 @@ def page(songs, pic_src, credits):
     </div>
 
     <div class="gp-stage" id="gp-stage">
-      {stage_svg()}
+      {stage_svg(horn)}
       <img class="gp-frankie" id="gp-frankie" src="img/frankie-grin-193.webp" alt="" width="193" height="505">
       <div class="gp-notes" id="gp-notes" aria-hidden="true"></div>
       <button type="button" class="gp-bigplay" id="gp-bigplay" aria-label="Play">{ICON['play']}<span>Wind it up</span></button>
