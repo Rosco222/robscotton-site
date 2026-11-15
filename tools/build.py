@@ -753,6 +753,12 @@ RUSSELL_SHEETS = [
   ("rx-crossword","russell-christmas-magic-crossword.pdf","Crossword","Fill in the puzzle with clues from the story. Stuck? The answers are hiding in the Clue Box.","1 page"),
   ("rx-word-search","russell-christmas-magic-word-search.pdf","Word search","Find ten words from the story, from SANTA to REINDEER, hidden across and down.","1 page"),
 ]
+MM_SHEETS = [
+  ("mm-word-scramble","max-moonbean-word-scramble.pdf","Word scramble","Eight words from the story have got all jumbled up. Help Max unscramble them.","1 page"),
+  ("mm-missing-words","max-moonbean-missing-words.pdf","Missing words","A word has floated away from eight lines of the story. Unscramble the letters in each tag to find it.","1 page"),
+  ("mm-crossword","max-moonbean-crossword.pdf","Crossword","Fill in the puzzle with clues from the story. Stuck? The answers are hiding in the Clue Box.","1 page"),
+  ("mm-word-search","max-moonbean-word-search.pdf","Word search","Find ten words from the story, from MAX to MOONBEAN, hidden across and down.","1 page"),
+]
 def sheet_card(key, pdf, title, desc, pages, btn="moon"):
     path = os.path.join('downloads', pdf)
     return f'<article class="sheet"><a class="sheet-pic" href="downloads/{pdf}" download aria-hidden="true" tabindex="-1">{pic("act-"+key, title + " activity sheet preview", "(max-width:560px) 60vw, 240px")}</a><div><h3>{title}</h3><p>{desc}</p><p class="sheet-meta">PDF, US Letter, {pages}, {kb(path)}</p><a class="btn {btn} small" href="downloads/{pdf}" download>Download {title}</a></div></article>'
@@ -808,6 +814,10 @@ activities = f"""
     <h2 id="ma-h">Printables for little astronauts</h2>
     <p class="lede">Brand-new activities made for this site from Rob’s own sketches and paintings. Each one is a single PDF, ready to print.</p>
     <div class="sheet-grid">{"".join(sheet_card(*s) for s in MAX_SHEETS)}</div>
+
+    <h3 class="act-sub">Word puzzles</h3>
+    <p>A word scramble, missing words, a crossword and a word search, all made from the story, with the answers on the edge of the page.</p>
+    <div class="sheet-grid">{"".join(sheet_card(*s) for s in MM_SHEETS)}</div>
 
     <div class="talk">
       <h3>Talking about the story</h3>
