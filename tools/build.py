@@ -781,7 +781,7 @@ activities = f"""
       <p class="kicker">Free to print</p>
       <h1>Things to make and do</h1>
       <p class="lede">Colouring, puzzles and classroom ideas for Russell the Sheep and Max and Moonbean. Print them at home or share them with your class.</p>
-      <div class="hero-actions cover-pills"><a class="btn cover-pill" href="#russell-act"><img src="img/cover-russell-sheep-480.webp" alt="" width="40" height="40">Russell the Sheep</a><a class="btn cover-pill" href="#max-act"><img class="cp-max" src="img/max-cover-480.webp" alt="" width="40" height="40">Max and Moonbean</a><a class="btn cover-pill" href="https://splatthecat.com/activities.html" target="_blank" rel="noopener"><img src="img/cover-splat-173.webp" alt="" width="40" height="40">Splat activities {EXT}</a></div>
+      <div class="hero-actions cover-pills"><a class="btn cover-pill cp-gold" href="#russell-act"><img src="img/cover-russell-sheep-480.webp" alt="" width="40" height="40">Russell the Sheep</a><a class="btn cover-pill cp-blue" href="#max-act"><img class="cp-max" src="img/max-cover-480.webp" alt="" width="40" height="40">Max and Moonbean</a><a class="btn cover-pill" href="https://splatthecat.com/activities.html" target="_blank" rel="noopener"><img src="img/cover-splat-173.webp" alt="" width="40" height="40">Splat activities {EXT}</a></div>
     </div>
     <div class="stage act-fan" aria-hidden="true">
       {pic("act-maze","","240px")}{pic("act-colouring","","240px")}{pic("act-code","","240px")}
